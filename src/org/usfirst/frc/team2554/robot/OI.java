@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2554.robot.commands.MoveElevator;
-import org.usfirst.frc.team2554.robot.commands.Retrieve;
-import org.usfirst.frc.team2554.robot.commands.Shoot;
 import org.usfirst.frc.team2554.robot.commands.ToggleRatchet;
 
 
@@ -38,6 +36,7 @@ public class OI {
 	int speedControl = 9;
 	int intakeTrigger= 7;
 	int outtakeTrigger = 6;
+	int elevatorControl = 9;
 	Button home = new JoystickButton(mechController, buttonHome);
     Button portal = new JoystickButton(mechController, buttonPortal);
     Button switche = new JoystickButton(mechController, buttonSwitch);
@@ -46,9 +45,30 @@ public class OI {
     Button climbSafety = new JoystickButton(mechController, buttonClimbSafety);
   
     
+    public double elevatorControl() 
+ 	{
+ 		return mechController.getRawAxis(elevatorControl);
+ 	}
+   
     public double returnRetriever()
     {
-    	mechController.getRawAxis(intakeTrigger)
+    	return mechController.getRawAxis(intakeTrigger);
+    }
+    
+    public double returnShooter()
+    {
+    	return mechController.getRawAxis(outtakeTrigger);
+    }
+    
+ 
+    public double leftSide()
+    {
+    	return leftStick.getY();
+    }
+    
+    public double rightSide()
+    {
+    	return rightStick.getY();
     }
     
 	
@@ -64,6 +84,7 @@ public class OI {
 		climb.whenPressed(new MoveElevator(4));
 		climbSafety.toggleWhenPressed(new ToggleRatchet());
 	}
+
 	
 	
 }
