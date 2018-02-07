@@ -20,8 +20,7 @@ public class Intake extends Subsystem {
     SpeedControllerGroup intake = new SpeedControllerGroup(leftMotor, rightMotor);
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+     
     }
     public Intake() {
     		
@@ -29,13 +28,7 @@ public class Intake extends Subsystem {
    
     public void setSpeed(double speed)
     {
-    	intake.set(speed);
-   
-    	//lemon
-    	//new line 
-    	
-    	//pie apple
-    	
+    	intake.set(speed);    	
     }
     
     public double getCurrent()

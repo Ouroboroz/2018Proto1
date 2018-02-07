@@ -59,7 +59,7 @@ public class Elevator extends Subsystem {
 
 	public void move(double speed)
 	{
-		if(!((speed>0) && getLimit(1)) && !((speed<0) && getLimit(0)))
+		if(!((speed>0) && getLimit(4)) && !((speed<0) && getLimit(0)) && !((ratchetStatus) && (speed<0)))
 		{
 		SmartDashboard.putNumber("Motor Speed", speed);
 		elevatorMotor1.set(speed);
@@ -85,7 +85,7 @@ public class Elevator extends Subsystem {
 	public int updateStatus()	
 	{
 		int currentSpot;
-		for(int i = 0; i < 2 ; i++)
+		for(int i = 0; i < limit.length ; i++)
 		{
 			if(limit[i].get())
 			{
@@ -113,6 +113,10 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("Limit Switch", updateStatus());
 		SmartDashboard.putBoolean("Limit 0", limit[0].get());
 		SmartDashboard.putBoolean("Limit 1", limit[1].get());
+		SmartDashboard.putBoolean("Limit 2", limit[2].get());
+		SmartDashboard.putBoolean("Limit 3", limit[3].get());
+		SmartDashboard.putBoolean("Limit 4", limit[4].get());
+
 	}
 
 	
