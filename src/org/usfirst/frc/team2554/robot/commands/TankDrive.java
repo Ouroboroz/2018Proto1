@@ -24,8 +24,8 @@ public class TankDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	leftSide = Robot.oi.leftStick.getY();
-    	rightSide = Robot.oi.rightStick.getY();
+    	leftSide = Robot.oi.leftSide();
+    	rightSide = Robot.oi.rightSide();
     	if(isDeadzone(leftSide, DEADZONE))
     		leftSide = 0;
     	

@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2554.robot.commands.MoveElevator;
+import org.usfirst.frc.team2554.robot.commands.Retrieve;
+import org.usfirst.frc.team2554.robot.commands.Shooter;
 import org.usfirst.frc.team2554.robot.commands.ToggleRatchet;
 
 
@@ -34,31 +36,25 @@ public class OI {
 	int buttonClimb = 1 ;
 	int buttonClimbSafety = 9;
 	int speedControl = 9;
-	int intakeTrigger= 7;
-	int outtakeTrigger = 6;
+	int intakeSpeed= 7;
+	int outtakeSpeed = 6;
 	int elevatorControl = 9;
+	int intakeButton = 3;
+	int outakeButton = 3;
 	Button home = new JoystickButton(mechController, buttonHome);
     Button portal = new JoystickButton(mechController, buttonPortal);
     Button switche = new JoystickButton(mechController, buttonSwitch);
     Button scale = new JoystickButton(mechController, buttonScale);
     Button climb = new JoystickButton(mechController, buttonClimb);
     Button climbSafety = new JoystickButton(mechController, buttonClimbSafety);
+    Button intake = new JoystickButton(mechController, intakeButton);
+    Button outake = new JoystickButton(mechController, outakeButton);
   
     
     public double elevatorControl() 
  	{
  		return mechController.getRawAxis(elevatorControl);
  	}
-   
-    public double returnRetriever()
-    {
-    	return mechController.getRawAxis(intakeTrigger);
-    }
-    
-    public double returnShooter()
-    {
-    	return mechController.getRawAxis(outtakeTrigger);
-    }
     
  
     public double leftSide()
@@ -69,6 +65,16 @@ public class OI {
     public double rightSide()
     {
     	return rightStick.getY();
+    }
+    
+    public double intakeSpeed()
+    {
+    	return mechController.getRawAxis(intakeSpeed);
+    }
+    
+    public double outakeSpeed()
+    {
+    	return mechController.getRawAxis(outtakeSpeed);
     }
     
 	
@@ -83,6 +89,8 @@ public class OI {
 		scale.whenPressed(new MoveElevator(3));
 		climb.whenPressed(new MoveElevator(4));
 		climbSafety.toggleWhenPressed(new ToggleRatchet());
+		intake.whileHeld(new Retrieve());
+		outake.whileHeld(new Shooter());
 	}
 
 	
