@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Retrieve extends Command {
+public class ManualElevator extends Command {
 
-    public Retrieve() {
-       
-    	requires(Robot.intake);
+    public ManualElevator() {
+
+    requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
@@ -21,10 +21,16 @@ public class Retrieve extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	double speed = -1 *Robot.oi.clawSpeed();
-    	double range = speed*0.3;
-    	Robot.intake.setSpeed(-0.5 + range);
     	
+    	if(Robot.elevator.updateStatus() > 0 && !Robot.oi.limitSwitchBypass())
+    	{
+    		Robot.elevator.stop();
+    	}
+    	
+    	else
+    	{
+        	Robot.elevator.move(Robot.oi.elevatorControl());
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,13 +40,12 @@ public class Retrieve extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intake.setSpeed(0.0);
+    	Robot.elevator.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.intake.setSpeed(0.0);
-
+    	Robot.elevator.stop();
     }
 }

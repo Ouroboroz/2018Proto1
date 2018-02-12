@@ -19,7 +19,7 @@ public class RobotMap {
 	public static int up = 1;
 	public static int down = -1;
 	public static double[] speeds= {0.2, 0.4, 0.6, 0.8,1}; 
-	public static int rSpeed = 9999;
+	public static double rSpeed = 0.5;
 	
 	public static int pdpMotor = 1;
 }
