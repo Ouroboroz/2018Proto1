@@ -18,7 +18,7 @@ public class RobotMap {
 	public static int[] encoderRight = {2,3};
 	public static int up = 1;
 	public static int down = -1;
-	public static double[] speeds= {0.2, 0.4, 0.6, 0.8,1}; 
+	public static double[] speeds= {0.1, 0.3, 0.5, 0.7,0.9}; 
 	public static double rSpeed = 0.5;
 	
 	public static int pdpMotor = 1;
