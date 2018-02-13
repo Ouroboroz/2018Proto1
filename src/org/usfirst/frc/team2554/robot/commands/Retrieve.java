@@ -11,7 +11,7 @@ public class Retrieve extends Command {
 
     public Retrieve() {
        
-    	requires(Robot.intake);
+    	requires(Robot.claw);
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +23,7 @@ public class Retrieve extends Command {
     	
     	double speed = -1 *Robot.oi.clawSpeed();
     	double range = speed*0.3;
-    	Robot.intake.setSpeed(-0.5 + range);
+    	Robot.claw.setSpeed(-0.5 + range);
     	
     }
 
@@ -34,13 +34,13 @@ public class Retrieve extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intake.setSpeed(0.0);
+    	Robot.claw.setSpeed(0.0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.intake.setSpeed(0.0);
+    	Robot.claw.setSpeed(0.0);
 
     }
 }

@@ -58,5 +58,6 @@ public class RotateToAngle extends PIDCommand {
 	protected void end(){
 		System.out.println("Angle Reached");
 		getPIDController().disable();
+		Robot.driveTrain.myDrive.arcadeDrive(0, 0);
 	}
 }

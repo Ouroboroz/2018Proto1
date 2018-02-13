@@ -12,7 +12,7 @@ public class Shooter extends Command {
     public Shooter() {
 
     	
-    	requires(Robot.intake);
+    	requires(Robot.claw);
 
     }
 
@@ -24,7 +24,7 @@ public class Shooter extends Command {
     protected void execute() {
     	double speed = Robot.oi.clawSpeed();
     	double range = speed*0.3;
-    	Robot.intake.setSpeed(0.5 + range);
+    	Robot.claw.setSpeed(0.5 + range);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,14 +34,14 @@ public class Shooter extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.intake.setSpeed(0.0);
+    	Robot.claw.setSpeed(0.0);
 
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.intake.setSpeed(0.0);
+    	Robot.claw.setSpeed(0.0);
 
     }
 }

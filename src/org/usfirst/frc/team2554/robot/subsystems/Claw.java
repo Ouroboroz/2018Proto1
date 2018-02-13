@@ -2,6 +2,7 @@ package org.usfirst.frc.team2554.robot.subsystems;
 import org.usfirst.frc.team2554.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -9,10 +10,10 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 /**
  *
  */
-public class Intake extends Subsystem {
+public class Claw extends Subsystem {
 
-    Victor leftMotor = new Victor(RobotMap.intake[0]);
-    Victor rightMotor = new Victor(RobotMap.intake[1]);
+    Victor leftMotor = new Victor(RobotMap.claw[0]);
+    Victor rightMotor = new Victor(RobotMap.claw[1]);
     
     PowerDistributionPanel pdp = new PowerDistributionPanel();
 
@@ -22,7 +23,7 @@ public class Intake extends Subsystem {
     public void initDefaultCommand() {
      
     }
-    public Intake() {
+    public Claw() {
     		
     }
    
@@ -34,6 +35,12 @@ public class Intake extends Subsystem {
     public double getCurrent()
     {
     	return pdp.getCurrent(RobotMap.pdpMotor);
+    }
+    
+    public void log()
+    {
+    	SmartDashboard.putNumber("Amperage", getCurrent());
+    	SmartDashboard.putNumber("Claw Speed", leftMotor.get());
     }
 }
 

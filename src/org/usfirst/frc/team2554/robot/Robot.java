@@ -30,8 +30,8 @@ public class Robot extends IterativeRobot {
 	Timer timer;
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Elevator elevator = new Elevator();
-	public static final Intake intake = new Intake();
-	
+	public static final Claw claw = new Claw();
+
 	//SendableChooser<Command> chooser = new SendableChooser<>();
 
 	/**
@@ -62,13 +62,13 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
-	
+
 	@Override
 	public void autonomousInit() {
 
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
-		
+
 	}
 
 	/**
@@ -77,37 +77,44 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		
+		log();
+
 
 	}
 
 	@Override
 	public void teleopInit() {
 
-		
+
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
+
 		driveTrain.gyro.calibrate();
-		
+
 	}
 
-	
+
 	@Override
 	public void teleopPeriodic() {
-		
+
 		Scheduler.getInstance().run();
-		elevator.log();
-		
+		log();
 	}
 
-	
+
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
-	
 
-	
-	
+	public void log()
+	{
+		elevator.log();
+		driveTrain.log();
+		claw.log();
+	}
+
+
+
+
 }

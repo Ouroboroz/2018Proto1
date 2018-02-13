@@ -8,11 +8,12 @@ package org.usfirst.frc.team2554.robot;
  */
 public class RobotMap {
 	public static int[] driveTrain = {0,1,2,3};
-	public static int[] intake = {4, 5};
+	public static int[] claw = {4, 5};
 	public static int[] climber = {6};
-	
 	public static int[] elevator = {7,8};
 	public static int[] spark = {9};
+	
+	
 	public static int[] limitSwitches = {5,6,7,8,9};
 	public static int[] encoderLeft = {0,1};
 	public static int[] encoderRight = {2,3};
