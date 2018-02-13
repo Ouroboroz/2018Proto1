@@ -1,21 +1,25 @@
 package org.usfirst.frc.team2554.robot.commands;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2554.robot.Robot;
-import org.usfirst.frc.team2554.robot.subsystems.DriveTrain;
 
 /**
  *
  */
 public class RotateToAngle extends PIDCommand {
+	
+	int counter = 0;
+	
 	public RotateToAngle(int angle) {
-		super(0.019,2,-0.04);
+		super(0,0,0);
+		double P = SmartDashboard.getNumber("P", 0);
+		double I = SmartDashboard.getNumber("I", 0);
+		double D = SmartDashboard.getNumber("D", 0);
+		getPIDController().setPID(P, I, D);
 		getPIDController().setInputRange(-180,180);
 		getPIDController().setOutputRange(-0.5, 0.5);
-		getPIDController().setToleranceBuffer(3);
 		getPIDController().setAbsoluteTolerance(0.005);
 		getPIDController().setSetpoint(angle);
 		getPIDController().setContinuous(true);
@@ -23,11 +27,7 @@ public class RotateToAngle extends PIDCommand {
 	}
 
 	protected void initialize() {
-		System.out.println("Lets begin");
 
-	}
-	protected void end(){
-		System.out.println("Angle Reached");
 	}
 
 	@Override
@@ -39,12 +39,24 @@ public class RotateToAngle extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double speed) {
-		Robot.driveTrain.myDrive.arcadeDrive(0,0-speed );
+		Robot.driveTrain.myDrive.arcadeDrive(0,-1*speed );
 	}
 
 	@Override
 	protected boolean isFinished() {
+		if(getPIDController().onTarget())
+			counter++;
 		
-		return getPIDController().onTarget();
+		else
+			counter--;
+			
+			
+		return counter>2;
+	}
+	
+
+	protected void end(){
+		System.out.println("Angle Reached");
+		getPIDController().disable();
 	}
 }

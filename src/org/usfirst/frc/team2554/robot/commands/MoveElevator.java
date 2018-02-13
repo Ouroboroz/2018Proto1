@@ -29,30 +29,26 @@ public class MoveElevator extends Command {
     }
 
     protected void initialize() {
-    
+    	if(elevator.updateStatus()<0)
+    		cancel();
     }
 
     protected void execute() {
-    	//TODO: Put if condition so that if it doesn't start on a limit switch, code doesn't break!
-    	if(elevator.updateStatus()>0)
+    	
+    	if(elevator.updateStatus()>=0)
     	{
     		currentLocation = elevator.updateStatus();
     	}
     	
-    	
-    	else
-    	{
-    		currentLocation = 0;
-    	}
-    	
+  
     	
     	int distance = Math.abs(goal - currentLocation);
     	
     	if(goal>currentLocation)
-    		direction = RobotMap.up;
+    		direction = 1;
     	    	
     	if(goal<currentLocation)
-    		direction = RobotMap.down;
+    		direction = -1;
     	
     	
 		elevator.move(direction * speed[distance]);
@@ -68,5 +64,6 @@ public class MoveElevator extends Command {
     }
 
     protected void interrupted() {
+    	elevator.stop();
     }
 }

@@ -21,5 +21,5 @@ public class RobotMap {
 	public static double[] speeds= {0.1, 0.3, 0.5, 0.7,0.9}; 
 	public static double rSpeed = 0.5;
 	
-	public static int pdpMotor = 1;
+	public static int pdpMotor = 4;
 }

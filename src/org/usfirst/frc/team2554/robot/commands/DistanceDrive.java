@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DistanceDrive extends Command {
 
-    double distancePerPulse = (6.0 * 3.1415926535897932384626433832795028841971693993751) / 128; // rotationlength/numberofpulsesperrotation
+    double distancePerPulse = (6.0 * Math.PI) / 128;
     double angle;
     double Kp = 0.03;
     double distance = 0;
@@ -42,6 +42,7 @@ public class DistanceDrive extends Command {
     protected void execute() {
         angle = Robot.driveTrain.getGyroAngle();
         Robot.driveTrain.myDrive.arcadeDrive(0.5, angle * Kp);
+        log();
     }
 
     // Make this return true when this Command no longer needs to run execute()

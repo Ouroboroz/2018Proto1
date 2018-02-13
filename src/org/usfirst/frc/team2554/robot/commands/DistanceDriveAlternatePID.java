@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DistanceDriveAlternatePID extends Command {
 
-    double distancePerPulse = (6.0 * Math.PI) / 128; // rotationlength/numberofpulsesperrotation
+    double distancePerPulse = (6.0 * Math.PI) / 128; 
     double currentAngle;
     double targetAngle; 
     double angleError;
@@ -51,6 +51,7 @@ public class DistanceDriveAlternatePID extends Command {
         double steeringSpeedLeft =  0.5 - correctionPower;
         	
         Robot.driveTrain.myDrive.tankDrive(steeringSpeedLeft, steeringSpeedRight);
+        log();
     }
 
     // Make this return true when this Command no longer needs to run execute()
