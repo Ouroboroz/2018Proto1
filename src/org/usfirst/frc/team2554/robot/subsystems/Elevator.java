@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Elevator extends Subsystem {
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
+
+	
 
 
 
@@ -31,7 +31,7 @@ public class Elevator extends Subsystem {
 	DigitalInput[] limit = { new DigitalInput(RobotMap.limitSwitches[0]), new DigitalInput(RobotMap.limitSwitches[1]),new DigitalInput(RobotMap.limitSwitches[2]),new DigitalInput(RobotMap.limitSwitches[3]),new DigitalInput(RobotMap.limitSwitches[4])};
 	
 	Spark ratchet = new Spark(RobotMap.spark[0]);
-	public boolean ratchetStatus;
+	public boolean ratchetStatus = false;
 	
 	
 	public void initDefaultCommand() {
@@ -116,6 +116,8 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Limit 2", limit[2].get());
 		SmartDashboard.putBoolean("Limit 3", limit[3].get());
 		SmartDashboard.putBoolean("Limit 4", limit[4].get());
+		SmartDashboard.putBoolean("Ratchet Staus", ratchetStatus);
+		SmartDashboard.putNumber("Elevator Power", elevatorMotor1.get());
 
 	}
 
