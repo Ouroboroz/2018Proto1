@@ -11,7 +11,7 @@ public class AutonomousCommand extends CommandGroup {
     public AutonomousCommand(int direction) {
     		
     		String scaleSide = "";//FMS on which side the scale is one
-		
+		//ikik
 /*		switch (scaleSide)
 		{
 			case 0: direction = 1;
