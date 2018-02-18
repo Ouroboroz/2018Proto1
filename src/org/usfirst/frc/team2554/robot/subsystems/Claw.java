@@ -4,6 +4,7 @@ import org.usfirst.frc.team2554.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
@@ -15,12 +16,17 @@ public class Claw extends Subsystem {
     Victor leftMotor = new Victor(RobotMap.claw[0]);
     Victor rightMotor = new Victor(RobotMap.claw[1]);
     
-    PowerDistributionPanel pdp = new PowerDistributionPanel();
-
+    Victor winch = new Victor(RobotMap.winch);
+    Encoder winchTracker = new Encoder(RobotMap.encoderLeft[0], RobotMap.encoderWinch[1]);
     
-    SpeedControllerGroup intake = new SpeedControllerGroup(leftMotor, rightMotor);
+    public double uprightToFlatDistance;
+    public double distancePulse;
+   
 
     public void initDefaultCommand() {
+    	
+    	winchTracker.setDistancePerPulse(distancePulse);
+    	winchTracker.setMaxPeriod(0.1);
      
     }
     public Claw() {
@@ -29,17 +35,28 @@ public class Claw extends Subsystem {
    
     public void setSpeed(double speed)
     {
-    	intake.set(speed);    	
+    	leftMotor.set(speed); 
+    	rightMotor.set(speed);
     }
     
-    public double getCurrent()
+    public void stop()
     {
-    	return pdp.getCurrent(RobotMap.pdpMotor);
+    	leftMotor.set(0);
+    	rightMotor.set(0);
     }
     
+    public double distance()
+    {
+    	return winchTracker.getDistance();
+    }
+    
+    public void reset()
+    {
+    	winchTracker.reset();
+    }
+ 
     public void log()
     {
-    	SmartDashboard.putNumber("Amperage", getCurrent());
     	SmartDashboard.putNumber("Claw Speed", leftMotor.get());
     }
 }

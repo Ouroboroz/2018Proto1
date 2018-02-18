@@ -22,7 +22,7 @@ public class ManualElevator extends Command {
     	
     	if(Robot.elevator.updateStatus() >= 0 && !Robot.oi.limitSwitchBypass())
     	{
-    		Robot.elevator.stop();
+    		Robot.elevator.stall();
     	}
     	
     	else
@@ -36,10 +36,10 @@ public class ManualElevator extends Command {
     }
 
     protected void end() {
-    	Robot.elevator.stop();
+    	Robot.elevator.stall();
     }
 
     protected void interrupted() {
-    	Robot.elevator.stop();
+    	Robot.elevator.stall();
     }
 }
