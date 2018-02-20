@@ -7,11 +7,11 @@ package org.usfirst.frc.team2554.robot;
  * floating around.
  */
 public class RobotMap {
-	public static int[] driveTrain = {0,1,2,3};
-	public static int[] claw = {4, 5};
-	public static int winch = 6;
+	public static int[] driveTrain = {3,0,1,2};
+	public static int[] claw = {4, 6};
+	public static int winch = 8;
 
-	public static int[] elevator = {7,8};
+	public static int[] elevator = {5,7};
 	public static int[] spark = {9};
 	
 	

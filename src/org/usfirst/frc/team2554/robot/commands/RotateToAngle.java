@@ -48,8 +48,10 @@ public class RotateToAngle extends PIDCommand {
 			counter++;
 		
 		else
-			counter--;
-			
+		{
+			if(counter > 0)
+			   counter--;
+		}	
 			
 		return counter>2;
 	}

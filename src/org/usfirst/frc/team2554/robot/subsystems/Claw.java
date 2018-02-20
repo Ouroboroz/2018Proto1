@@ -17,7 +17,7 @@ public class Claw extends Subsystem {
     Victor rightMotor = new Victor(RobotMap.claw[1]);
     
     Victor winch = new Victor(RobotMap.winch);
-    Encoder winchTracker = new Encoder(RobotMap.encoderLeft[0], RobotMap.encoderWinch[1]);
+    Encoder winchTracker = new Encoder(RobotMap.encoderWinch[0], RobotMap.encoderWinch[1]);
     
     public double uprightToFlatDistance;
     public double distancePulse;

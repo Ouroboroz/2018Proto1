@@ -2,7 +2,6 @@ package org.usfirst.frc.team2554.robot.commands;
 
 import org.usfirst.frc.team2554.robot.Robot;
 import org.usfirst.frc.team2554.robot.RobotMap;
-import org.usfirst.frc.team2554.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,53 +17,64 @@ public class MoveElevator extends Command {
 
 	private int goal;
 	private int currentLocation;
-	Elevator elevator;
-	private double speedUp = 0.2;
-	private double speedDown = 0.05;
-	private double speed;
+	private double speedUp = 0.5;
+	private double speedDown = -0.05;
+	private double speed=0.11;
     public MoveElevator(int goal) {
-       requires(Robot.elevator);
-       elevator = Robot.elevator;
+        requires(Robot.elevator);
        this.goal = goal;
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+
     }
 
     protected void initialize() {
-    	if(elevator.updateStatus()<0)
-    		cancel();
+    	//if(Robot.elevator.updateStatus()<0)
+    		//cancel();
     }
 
     protected void execute() {
     	
-    	if(elevator.updateStatus()>=0)
+    	if(Robot.elevator.updateStatus()>=0)
     	{
-    		currentLocation = elevator.updateStatus();
+    		currentLocation = Robot.elevator.updateStatus();
     	}
     	
-  
+    	System.out.println("Move Elevator Running");
     	
     	
     	if(goal>=currentLocation)
     	{
     		speed = speedUp;
+    		System.out.println("Speeding Up");
     	}   	
     	if(goal<currentLocation)
     	{	
     		speed = speedDown;
+    		System.out.println("Speeding Down");
     	}
-    	
-		elevator.move(speed);
+    	System.out.println(speed);
+		Robot.elevator.move(speed);
    	
     }
 
     protected boolean isFinished() {
-    	return elevator.atLocation(goal, currentLocation);
+    	return Robot.elevator.atLocation(goal, currentLocation);
     }
 
     protected void end() {
-    	elevator.stall();
+    	Robot.elevator.stall();
     }
 
     protected void interrupted() {
-    	elevator.stall();
+    	Robot.elevator.stall();
     }
 }

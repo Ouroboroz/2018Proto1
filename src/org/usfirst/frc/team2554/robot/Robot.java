@@ -25,12 +25,12 @@ public class Robot extends IterativeRobot {
 
 	
 	Command autonomousCommand; 
-	public static OI oi = new OI();
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final Elevator elevator = new Elevator();
-	public static final Claw claw = new Claw();
-	public static final Ratchet ratchet = new Ratchet();
 
+	public static  DriveTrain driveTrain = new DriveTrain();
+	public static  Elevator elevator = new Elevator();
+	public static  Claw claw = new Claw();
+	public static  Ratchet ratchet = new Ratchet();
+	public static OI oi = new OI();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -39,7 +39,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		
 		
 
 	}

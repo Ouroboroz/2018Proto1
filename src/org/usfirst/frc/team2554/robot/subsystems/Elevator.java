@@ -31,7 +31,7 @@ public class Elevator extends Subsystem {
 	DigitalInput[] limit = { new DigitalInput(RobotMap.limitSwitches[0]), new DigitalInput(RobotMap.limitSwitches[1]),new DigitalInput(RobotMap.limitSwitches[2]),new DigitalInput(RobotMap.limitSwitches[3])};
 	
 	
-	public double holdingPower = -0.15;
+	public double holdingPower = -0.1111;
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new HoldElevator());
@@ -42,11 +42,16 @@ public class Elevator extends Subsystem {
 
 	public void move(double speed)
 	{
-		if(!((speed>0) && getLimit(3)) && !((speed<0) && getLimit(0)) && !((Robot.ratchet.ratchetStatus) && (speed<0)))
+		System.out.println(!((speed>0) && getLimit(3)));
+		System.out.println(!((speed<0) && getLimit(0)));
+		if(/*!((speed>0) && getLimit(3)) &&*/ !((speed<0) && getLimit(0)) && /*!((Robot.ratchet.ratchetStatus) && */(speed<0.7))//)
 		{
+			System.out.println("god bless:" + speed);
 		SmartDashboard.putNumber("Motor Speed", speed);
 		elevatorMotor1.set(-speed);
+		System.out.println("kinda blessed");
 		elevatorMotor2.set(-speed);
+		System.out.println("not blessed");
 		}
 		
 		else
@@ -57,8 +62,8 @@ public class Elevator extends Subsystem {
 	
 	public void stall()
 	{
-		elevatorMotor1.set(-0.15);
-		elevatorMotor2.set(-0.15);
+		elevatorMotor1.set(holdingPower);
+		elevatorMotor2.set(holdingPower);
 	}
 
 	public void stop()

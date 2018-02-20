@@ -61,11 +61,13 @@ public class DriveTrain extends Subsystem {
 
 	public void tankDrive(double leftVal, double rightVal, double sensitivity, double deadzone)
 	{
-		if(leftVal<deadzone)
+		
+		if(Math.abs(leftVal)< deadzone)
 			leftVal = 0;
 		
-		if (rightVal<deadzone)
+		if(Math.abs(rightVal)< deadzone)
 			rightVal = 0;
+		
 		
 		
 		myDrive.tankDrive(leftVal*sensitivity, rightVal*sensitivity);
@@ -73,10 +75,10 @@ public class DriveTrain extends Subsystem {
 	
 	public void arcadeDrive(double forwardSpeed, double rotationSpeed, double sensitivity, double deadzone)
 	{
-		if(forwardSpeed<deadzone)
+		if(Math.abs(forwardSpeed)< deadzone)
 			forwardSpeed = 0;
 		
-		if (rotationSpeed<deadzone)
+		if(Math.abs(rotationSpeed)< deadzone)
 			rotationSpeed = 0;
 		
 		myDrive.arcadeDrive(forwardSpeed*sensitivity, rotationSpeed*sensitivity);

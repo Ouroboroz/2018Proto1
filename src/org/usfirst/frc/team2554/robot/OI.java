@@ -12,10 +12,10 @@ import org.usfirst.frc.team2554.robot.commands.MoveElevator;
 import org.usfirst.frc.team2554.robot.commands.Retrieve;
 import org.usfirst.frc.team2554.robot.commands.Shooter;
 import org.usfirst.frc.team2554.robot.commands.ToggleRatchet;
+import org.usfirst.frc.team2554.robot.subsystems.Elevator;
 import org.usfirst.frc.team2554.robot.triggers.Intake;
 import org.usfirst.frc.team2554.robot.triggers.ManualControl;
 import org.usfirst.frc.team2554.robot.triggers.Outtake;
-import org.usfirst.frc.team2554.robot.triggers.RatchetBackup;
 
 
 /**
@@ -40,21 +40,21 @@ public class OI {
 	// Levels
 	int buttonHome = 1;
 	int buttonSwitch = 2;
-	int buttonScale = 4;
-	int buttonClimb = 3;
+	int buttonScale = 3;
+	int buttonClimb = 4;
 	
 	
 
 	//Elevator
 	int manualControlStop = 10;
-	int toggleRatchetButton = 7;
+	int toggleRatchetButton = 6;
 	
 	
 	//AXES !!!!!!!!!!!!
 	
 	//Claw
-	int intakeControl = 999;
-	int outtakeControl = 999;
+	int intakeControl = 2;
+	int outtakeControl = 3;
 
 	
 	//Elevator
@@ -72,7 +72,6 @@ public class OI {
     public Trigger manualControl = new ManualControl(mechController, elevatorControl);
     public Trigger intake = new Intake(mechController, intakeControl);
     public Trigger outtake = new Outtake(mechController, outtakeControl);
-    public Trigger ratchetFailsafe = new RatchetBackup();
     
     public boolean limitSwitchBypass()  // manual elevator              
     {
@@ -118,7 +117,6 @@ public class OI {
 	public OI() {
 		
 		
-		
 
 		home.whenPressed(new MoveElevator(0));
 		switche.whenPressed(new MoveElevator(1));
@@ -130,7 +128,6 @@ public class OI {
 		manualControl.whileActive(new ManualElevator());
 		intake.whileActive(new Retrieve());
 		outtake.whileActive(new Shooter());
-		ratchetFailsafe.whenActive(new ToggleRatchet(true) );
 	}
 
 	
