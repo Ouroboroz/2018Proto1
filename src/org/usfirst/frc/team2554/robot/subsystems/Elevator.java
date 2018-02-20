@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2554.robot.subsystems;
 
+import org.usfirst.frc.team2554.robot.Robot;
 import org.usfirst.frc.team2554.robot.RobotMap;
 import org.usfirst.frc.team2554.robot.commands.HoldElevator;
 
@@ -21,53 +22,43 @@ public class Elevator extends Subsystem {
 
 	// 0: HOME
 	// 1: SWITCH
-	// 2: PORTAL 
-	// 3: SCALE
-	// 4: CLIMB
+	// 2: SCALE
+	// 3: CLIMB
 
-	Victor elevatorMotor1 = new Victor(RobotMap.elevator[0]);
-	Victor elevatorMotor2 = new Victor(RobotMap.elevator[1]); //Elevator Motor 2
+	public Victor elevatorMotor1 = new Victor(RobotMap.elevator[0]);
+	public Victor elevatorMotor2 = new Victor(RobotMap.elevator[1]);
 
-	DigitalInput[] limit = { new DigitalInput(RobotMap.limitSwitches[0]), new DigitalInput(RobotMap.limitSwitches[1]),new DigitalInput(RobotMap.limitSwitches[2]),new DigitalInput(RobotMap.limitSwitches[3]),new DigitalInput(RobotMap.limitSwitches[4])};
+	DigitalInput[] limit = { new DigitalInput(RobotMap.limitSwitches[0]), new DigitalInput(RobotMap.limitSwitches[1]),new DigitalInput(RobotMap.limitSwitches[2]),new DigitalInput(RobotMap.limitSwitches[3])};
 	
-	Spark ratchet = new Spark(RobotMap.spark[0]);
-	public boolean ratchetStatus = false;
 	
+	public double holdingPower = -0.15;
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new HoldElevator());
 	}
 
-	//
+	
 
-	public void setRatchet(boolean rat)
-	{
-		
-		 if(rat)
-		{
-			ratchet.set(RobotMap.up * RobotMap.rSpeed);
-			ratchetStatus = true;
-		}
-
-		else 
-		{
-			ratchetStatus = false;
-			ratchet.set(0);
-		}
-		
-	}
 
 	public void move(double speed)
 	{
-		if(!((speed>0) && getLimit(4)) && !((speed<0) && getLimit(0)) && !((ratchetStatus) && (speed<0)))
+		if(!((speed>0) && getLimit(3)) && !((speed<0) && getLimit(0)) && !((Robot.ratchet.ratchetStatus) && (speed<0)))
 		{
 		SmartDashboard.putNumber("Motor Speed", speed);
-		elevatorMotor1.set(speed);
-		elevatorMotor2.set(speed);
+		elevatorMotor1.set(-speed);
+		elevatorMotor2.set(-speed);
 		}
 		
 		else
-			stop();
+			stall();
+		
+
+	}
+	
+	public void stall()
+	{
+		elevatorMotor1.set(-0.15);
+		elevatorMotor2.set(-0.15);
 	}
 
 	public void stop()
@@ -115,8 +106,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Limit 1", limit[1].get());
 		SmartDashboard.putBoolean("Limit 2", limit[2].get());
 		SmartDashboard.putBoolean("Limit 3", limit[3].get());
-		SmartDashboard.putBoolean("Limit 4", limit[4].get());
-		SmartDashboard.putBoolean("Ratchet Staus", ratchetStatus);
 		SmartDashboard.putNumber("Elevator Power", elevatorMotor1.get());
 
 	}

@@ -1,19 +1,16 @@
 package org.usfirst.frc.team2554.robot.triggers;
 
-import org.usfirst.frc.team2554.robot.Robot;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  *
  */
-public class ManualControl extends Trigger {
+public class Outtake extends Trigger {
 
-	
 	Joystick joystick;
 	int axis;
-	public ManualControl(Joystick jystk, int ax)
+	public Outtake(Joystick jystk, int ax)
 	{
 		joystick = jystk;
 		axis = ax;

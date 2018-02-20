@@ -10,18 +10,18 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 
-     //0: HOME
+         //0: HOME
 	// 1: SWITCH
-	// 2: PORTAL 
-	// 3: SCALE
-	// 4: CLIMB
+	// 2: SCALE
+	// 3: CLIMB
 public class MoveElevator extends Command {
 
 	private int goal;
 	private int currentLocation;
-	private int direction;
 	Elevator elevator;
-	double[] speed = RobotMap.speeds;
+	private double speedUp = 0.2;
+	private double speedDown = 0.05;
+	private double speed;
     public MoveElevator(int goal) {
        requires(Robot.elevator);
        elevator = Robot.elevator;
@@ -42,16 +42,17 @@ public class MoveElevator extends Command {
     	
   
     	
-    	int distance = Math.abs(goal - currentLocation);
     	
-    	if(goal>currentLocation)
-    		direction = 1;
-    	    	
+    	if(goal>=currentLocation)
+    	{
+    		speed = speedUp;
+    	}   	
     	if(goal<currentLocation)
-    		direction = -1;
+    	{	
+    		speed = speedDown;
+    	}
     	
-    	
-		elevator.move(direction * speed[distance]);
+		elevator.move(speed);
    	
     }
 
@@ -60,10 +61,10 @@ public class MoveElevator extends Command {
     }
 
     protected void end() {
-    	elevator.stop();
+    	elevator.stall();
     }
 
     protected void interrupted() {
-    	elevator.stop();
+    	elevator.stall();
     }
 }
