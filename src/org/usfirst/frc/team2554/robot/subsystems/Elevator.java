@@ -78,7 +78,7 @@ public class Elevator extends Subsystem {
 		return limit[choice].get();
 	}
 
-	public int updateStatus()	
+	public int currentLocation()	
 	{
 		int currentSpot;
 		for(int i = 0; i < limit.length ; i++)
@@ -94,19 +94,11 @@ public class Elevator extends Subsystem {
 		return -500;
 	}
 	
-	public boolean atLocation(int goal, int currentLocation)
-	{
-		if(getLimit(goal) && getLimit(currentLocation))
-		{
-			return true;
-		}
-		
-		return false;
-	}
+	
 	
 	public void log()
 	{
-		SmartDashboard.putNumber("Limit Switch", updateStatus());
+		
 		SmartDashboard.putBoolean("Limit 0", limit[0].get());
 		SmartDashboard.putBoolean("Limit 1", limit[1].get());
 		SmartDashboard.putBoolean("Limit 2", limit[2].get());

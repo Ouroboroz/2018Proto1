@@ -23,51 +23,35 @@ public class MoveElevator extends Command {
     public MoveElevator(int goal) {
         requires(Robot.elevator);
        this.goal = goal;
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-
+       currentLocation = Robot.elevator.currentLocation();
     }
 
     protected void initialize() {
-    	//if(Robot.elevator.updateStatus()<0)
+    	//if(currentLocation<0)
     		//cancel();
+    	
+    	System.out.println("Current Location: " + currentLocation);
+    	
+    	if(goal > currentLocation)
+    		speed = speedUp;
+    	
+    	
+    	else
+    		speed = speedDown;
     }
 
     protected void execute() {
     	
-    	if(Robot.elevator.updateStatus()>=0)
-    	{
-    		currentLocation = Robot.elevator.updateStatus();
-    	}
     	
     	System.out.println("Move Elevator Running");
     	
-    	
-    	if(goal>=currentLocation)
-    	{
-    		speed = speedUp;
-    		System.out.println("Speeding Up");
-    	}   	
-    	if(goal<currentLocation)
-    	{	
-    		speed = speedDown;
-    		System.out.println("Speeding Down");
-    	}
     	System.out.println(speed);
 		Robot.elevator.move(speed);
    	
     }
 
     protected boolean isFinished() {
-    	return Robot.elevator.atLocation(goal, currentLocation);
+    	return Robot.elevator.getLimit(goal);
     }
 
     protected void end() {
