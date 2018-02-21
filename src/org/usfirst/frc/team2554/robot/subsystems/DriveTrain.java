@@ -113,7 +113,7 @@ public class DriveTrain extends Subsystem {
 	{
 		SmartDashboard.putNumber("Angle", getGyroAngle());
 		SmartDashboard.putNumber("Distance", getDistance());
-		SmartDashboard.putNumber("Left Side Power", left.get());
-		SmartDashboard.putNumber("Right Side Power", right.get());
+		SmartDashboard.putNumber("Left Speed", encoderLeft.getRate());
+		SmartDashboard.putNumber("Right Speed", encoderRight.getRate());
 	}
 }

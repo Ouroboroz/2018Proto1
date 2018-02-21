@@ -21,7 +21,7 @@ public class ManualElevator extends Command {
     	
     	double speed = Robot.oi.elevatorControl()*0.4;
     	System.out.println(speed);
-    	System.out.println(Robot.elevator.updateStatus() >= 0);
+    	System.out.println(Robot.elevator.currentLocation() >= 0);
     	System.out.println( !Robot.oi.limitSwitchBypass());
     	if(false)//Robot.elevator.updateStatus() >= 0 && !Robot.oi.limitSwitchBypass())
     	{
