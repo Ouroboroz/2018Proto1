@@ -11,9 +11,11 @@ public class AutonomousCommand extends CommandGroup {
 
     public AutonomousCommand() {
     		
-    		final String scaleSide = DriverStation.getInstance().getGameSpecificMessage();//FMS on which side the scale is one
+    		final String scaleSide = DriverStation.getInstance().getGameSpecificMessage(); //FMS on which side the scale is one
 		int direction = 0;
     		
+		while(scaleSide.length() == 3)
+		{
     		if (scaleSide.charAt(0) == 'L')
     		{
     			direction = -1; //Left 
@@ -81,6 +83,7 @@ public class AutonomousCommand extends CommandGroup {
     				break;
     			}
     		}
+		}
     		
     		//Code to put cube one scale and end operations
     		
