@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2554.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -8,40 +9,41 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousCommand extends CommandGroup {
 	int ELEVATOR_INITIAL_POSITION = 1; //Scoring Position
 
-    public AutonomousCommand(int direction) {
+    public AutonomousCommand() {
     		
-    		String scaleSide = "";//FMS on which side the scale is one
-		//ikik
-/*		switch (scaleSide)
-		{
-			case 0: direction = 1;
-				break; 
-			
-			case 1: direction = -1;
-				break;
-		}
-*/		
+    		final String scaleSide = DriverStation.getInstance().getGameSpecificMessage();//FMS on which side the scale is one
+		int direction = 0;
+    		
+    		if (scaleSide.charAt(0) == 'L')
+    		{
+    			direction = -1; //Left 
+    		}
+    		else
+    		{
+    			direction = 1; //Right 
+    		}
+		
     		int positionRobotDashboard = 0;//to read position
     		switch (positionRobotDashboard) 
     		{
-    			case 0://Right
+    			case 0://Robot starts on the right
     			{	
-    				addSequential(new MoveElevator(1));
-            		addSequential(new DistanceDrive(60));
-            		if(direction == -1)
+    				addSequential(new MoveElevator(1));			
+            		if(direction == 1) //If the scale is on the right
             		{
+            			addSequential(new DistanceDrive(150));
             			addSequential(new RotateToAngle(-90));
-                		addSequential(new DistanceDrive(264));
-                		addSequential(new RotateToAngle(0));
-                		addSequential(new DistanceDrive(69));
-                		addSequential(new RotateToAngle(90));
-                		addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDrive(41));
             		}
-            		else
+            		else //If the scale is on the left
             		{
-                		addSequential(new DistanceDrive(69));
-                		addSequential(new RotateToAngle(-90));
-                		addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDrive(209));
+            			addSequential(new RotateToAngle(-90));
+            			addSequential(new DistanceDrive(264));
+            			addSequential(new RotateToAngle(-90));
+            			addSequential(new DistanceDrive(61));
+            			addSequential(new RotateToAngle(-90));
+            			addSequential(new DistanceDrive(41));
             		}
     				break;
     			}
@@ -59,22 +61,22 @@ public class AutonomousCommand extends CommandGroup {
     			}
     			case 2://Left
     			{
-    				addSequential(new MoveElevator(1));
-            		addSequential(new DistanceDrive(60));
-            		if(direction == 1)
+    				addSequential(new MoveElevator(1));			
+            		if(direction == 1) //If the scale is on the right
             		{
-            			addSequential(new RotateToAngle(-90));
-                		addSequential(new DistanceDrive(264));
-                		addSequential(new RotateToAngle(0));
-                		addSequential(new DistanceDrive(69));
-                		addSequential(new RotateToAngle(90));
-                		addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDrive(209));
+            			addSequential(new RotateToAngle(90));
+            			addSequential(new DistanceDrive(264));
+            			addSequential(new RotateToAngle(90));
+            			addSequential(new DistanceDrive(61));
+            			addSequential(new RotateToAngle(90));
+            			addSequential(new DistanceDrive(41));
             		}
-            		else
+            		else //If the scale is on the left
             		{
-                		addSequential(new DistanceDrive(69));
-                		addSequential(new RotateToAngle(-90));
-                		addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDrive(150));
+            			addSequential(new RotateToAngle(90));
+            			addSequential(new DistanceDrive(41));
             		}
     				break;
     			}
