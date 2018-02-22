@@ -2,7 +2,7 @@ package org.usfirst.frc.team2554.robot.subsystems;
 
 
 import org.usfirst.frc.team2554.robot.*;
-import org.usfirst.frc.team2554.robot.commands.TankDrive;
+import org.usfirst.frc.team2554.robot.commands.TeleopDrive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -25,7 +25,7 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain()
 	{
 		double distancePerPulse = (6.0 * Math.PI) / 128;
-
+		gyro.calibrate();
 		encoderRight.setDistancePerPulse(distancePerPulse);
 		encoderLeft.setDistancePerPulse(distancePerPulse);
 		encoderRight.setMaxPeriod(.1);
@@ -52,31 +52,44 @@ public class DriveTrain extends Subsystem {
 	public DifferentialDrive myDrive = new DifferentialDrive(left,right);
 
 	public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-	Timer timer; 
-	double currentHeading;
-	double headingError;
-	double correction;
-	double KP=0.01;
+
 
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new TankDrive());
+		setDefaultCommand(new TeleopDrive());
 	}
 
-	public void teleopDrive(double leftVal, double rightVal)
+	public void tankDrive(double leftVal, double rightVal, double sensitivity, double deadzone)
 	{
-		myDrive.tankDrive(leftVal, rightVal);
+		
+		if(Math.abs(leftVal)< deadzone)
+			leftVal = 0;
+		
+		if(Math.abs(rightVal)< deadzone)
+			rightVal = 0;
+		
+		
+		
+		myDrive.tankDrive(leftVal*sensitivity, rightVal*sensitivity);
+	}
+	
+	public void arcadeDrive(double forwardSpeed, double rotationSpeed, double sensitivity, double deadzone)
+	{
+		if(Math.abs(forwardSpeed)< deadzone)
+			forwardSpeed = 0;
+		
+		if(Math.abs(rotationSpeed)< deadzone)
+			rotationSpeed = 0;
+		
+		myDrive.arcadeDrive(forwardSpeed*sensitivity, rotationSpeed*sensitivity);
+	}
+	
+	public void stop()
+	{
+		myDrive.stopMotor();
 	}
 
-	public void calibrateGyro()
-	{
-		gyro.calibrate();
-	}
 
-	public void resetGyro()
-	{
-		gyro.reset();
-	}
 
 	public double getGyroAngle()
 	{
@@ -89,8 +102,9 @@ public class DriveTrain extends Subsystem {
 		return ((encoderLeft.getDistance()+encoderRight.getDistance())/2);
 	}
 
-	public void resetDistance()
+	public void resetDriveTrain()
 	{
+		gyro.reset();
 		encoderLeft.reset();
 		encoderRight.reset();
 	}
@@ -99,7 +113,7 @@ public class DriveTrain extends Subsystem {
 	{
 		SmartDashboard.putNumber("Angle", getGyroAngle());
 		SmartDashboard.putNumber("Distance", getDistance());
-		SmartDashboard.putNumber("Left Side Power", left.get());
-		SmartDashboard.putNumber("Right Side Power", right.get());
+		SmartDashboard.putNumber("Left Speed", encoderLeft.getRate());
+		SmartDashboard.putNumber("Right Speed", encoderRight.getRate());
 	}
 }

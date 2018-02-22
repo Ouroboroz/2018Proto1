@@ -25,8 +25,7 @@ public class DistanceDrive extends Command {
     }
 
     protected void initialize() {
-        Robot.driveTrain.resetGyro();
-        Robot.driveTrain.resetDistance();
+    	Robot.driveTrain.resetDriveTrain();
     }
 
     protected void execute() {
@@ -44,15 +43,13 @@ public class DistanceDrive extends Command {
     
     
     protected void end() {
-    	Robot.driveTrain.myDrive.arcadeDrive(0,0);
-    	Robot.driveTrain.resetDistance();
-        Robot.driveTrain.resetGyro();
+        Robot.driveTrain.stop();
+    	Robot.driveTrain.resetDriveTrain();
     }
 
     protected void interrupted() {
-    	Robot.driveTrain.myDrive.arcadeDrive(0,0);
-    	Robot.driveTrain.resetDistance();
-        Robot.driveTrain.resetGyro();
+        Robot.driveTrain.stop();
+    	Robot.driveTrain.resetDriveTrain();
 
     }
     

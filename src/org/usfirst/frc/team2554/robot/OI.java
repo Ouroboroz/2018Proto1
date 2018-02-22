@@ -12,7 +12,10 @@ import org.usfirst.frc.team2554.robot.commands.MoveElevator;
 import org.usfirst.frc.team2554.robot.commands.Retrieve;
 import org.usfirst.frc.team2554.robot.commands.Shooter;
 import org.usfirst.frc.team2554.robot.commands.ToggleRatchet;
+import org.usfirst.frc.team2554.robot.subsystems.Elevator;
+import org.usfirst.frc.team2554.robot.triggers.Intake;
 import org.usfirst.frc.team2554.robot.triggers.ManualControl;
+import org.usfirst.frc.team2554.robot.triggers.Outtake;
 
 
 /**
@@ -25,92 +28,106 @@ public class OI {
 
      //0: HOME
 	// 1: SWITCH j 
-	// 2: PORTAL 
-	// 3: SCALE
-	// 4: CLIMB
+	// 2: SCALE
+	// 3: CLIMB
 	public Joystick leftStick = new Joystick(0);
 	public Joystick rightStick = new Joystick(1);
 	public Joystick mechController = new Joystick(2);
 	
-	//Buttons 
+	//BUTTONS !!!!!!
 	
 	
 	// Levels
 	int buttonHome = 1;
-	int buttonPortal = 2;
-	int buttonSwitch = 3;
-	int buttonScale = 4;
-	int buttonClimb = 8 ;
+	int buttonSwitch = 2;
+	int buttonScale = 3;
+	int buttonClimb = 4;
 	
-	//Claw
-	int intakeButton = 5;
-	int outakeButton = 6;
 	
+
 	//Elevator
 	int manualControlStop = 10;
-	
-	//End Game
-	int toggleRatchetButton = 7;
+	int toggleRatchetButton = 6;
 	
 	
-	//Axeses
-	int clawSpeedControl = 1;
-	int elevatorControl = 5;
+	//AXES !!!!!!!!!!!!
+	
+	//Claw
+	int intakeControl = 2;
+	int outtakeControl = 3;
 
+	
+	//Elevator
+	int elevatorControl = 5;
 	
 	
 	public Button home = new JoystickButton(mechController, buttonHome);
-	public Button portal = new JoystickButton(mechController, buttonPortal);
     public Button switche = new JoystickButton(mechController, buttonSwitch);
     public Button scale = new JoystickButton(mechController, buttonScale);
     public Button climb = new JoystickButton(mechController, buttonClimb);
-    public Button intake = new JoystickButton(mechController, intakeButton);
-    public  Button outake = new JoystickButton(mechController, outakeButton);
+    
+   
     public Button toggleRatchet = new JoystickButton(mechController, toggleRatchetButton);
-
-    public Trigger manualControl = new ManualControl();
     
+    public Trigger manualControl = new ManualControl(mechController, elevatorControl);
+    public Trigger intake = new Intake(mechController, intakeControl);
+    public Trigger outtake = new Outtake(mechController, outtakeControl);
     
-    public boolean limitSwitchBypass()
+    public boolean limitSwitchBypass()  // manual elevator              
     {
     	return mechController.getRawButton(manualControlStop);
     }
  
-    public double elevatorControl() 
+    public double elevatorControl() //manual elevator
  	{
  		return -1*mechController.getRawAxis(elevatorControl);
  	}
     
+    public double intakeSpeed() // claw
+    {
+    	return mechController.getRawAxis(intakeControl);
+    }
+    
+    public double outtakeSpeed() // claw
+    {
+    	return mechController.getRawAxis(outtakeControl);
+    }
  
-    public double leftSide()
+    public double leftSide() //tank drive
     {
     	return -1*leftStick.getY();
     }
     
-    public double rightSide()
+    public double rightSide() //tank drive
     {
     	return -1*rightStick.getY();
     }
     
-    public double clawSpeed()
-    {
-    	return -1*mechController.getRawAxis(clawSpeedControl);
-    }
+
 	
+    public double verticalSpeed() //arcade drive
+    {
+    	return -1*leftStick.getY();
+    }
+    
+    public double rotationSpeed() // arcade drive
+    {
+    	return leftStick.getZ();
+    }
 	public OI() {
-		
 		
 		
 
 		home.whenPressed(new MoveElevator(0));
 		switche.whenPressed(new MoveElevator(1));
-		portal.whenPressed(new MoveElevator(2));
-		scale.whenPressed(new MoveElevator(3));
-		climb.whenPressed(new MoveElevator(4));
-		intake.whileHeld(new Retrieve());
-		outake.whileHeld(new Shooter());
+		scale.whenPressed(new MoveElevator(2));
+		climb.whenPressed(new MoveElevator(3));
+		
+		toggleRatchet.whenPressed(new ToggleRatchet(!Robot.ratchet.ratchetStatus));
+
 		manualControl.whileActive(new ManualElevator());
-		toggleRatchet.whenPressed(new ToggleRatchet());
+		intake.whileActive(new Retrieve());
+		outtake.whileActive(new Shooter());
 	}
 
 	

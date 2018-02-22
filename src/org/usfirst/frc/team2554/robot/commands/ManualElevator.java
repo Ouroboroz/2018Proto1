@@ -19,15 +19,21 @@ public class ManualElevator extends Command {
 
     protected void execute() {
     	
-    	
-    	if(Robot.elevator.updateStatus() >= 0 && !Robot.oi.limitSwitchBypass())
+    	double speed = Robot.oi.elevatorControl()*0.4;
+    	System.out.println(speed);
+    	System.out.println(Robot.elevator.currentLocation() >= 0);
+    	System.out.println( !Robot.oi.limitSwitchBypass());
+    	if(false)//Robot.elevator.updateStatus() >= 0 && !Robot.oi.limitSwitchBypass())
     	{
-    		Robot.elevator.stop();
+    		Robot.elevator.stall();
     	}
     	
     	else
     	{
-        	Robot.elevator.move(Robot.oi.elevatorControl());
+        	//Robot.elevator.move(speed + -1*Robot.elevator.holdingPower);
+        	Robot.elevator.elevatorMotor1.set((speed + -1*Robot.elevator.holdingPower)*-1);
+        	Robot.elevator.elevatorMotor2.set((speed + -1*Robot.elevator.holdingPower)*-1);
+
     	}
     }
 
@@ -36,10 +42,10 @@ public class ManualElevator extends Command {
     }
 
     protected void end() {
-    	Robot.elevator.stop();
+    	Robot.elevator.stall();
     }
 
     protected void interrupted() {
-    	Robot.elevator.stop();
+    	Robot.elevator.stall();
     }
 }

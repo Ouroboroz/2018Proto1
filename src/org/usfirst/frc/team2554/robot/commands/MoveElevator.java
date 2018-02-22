@@ -2,7 +2,6 @@ package org.usfirst.frc.team2554.robot.commands;
 
 import org.usfirst.frc.team2554.robot.Robot;
 import org.usfirst.frc.team2554.robot.RobotMap;
-import org.usfirst.frc.team2554.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,60 +9,56 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 
-     //0: HOME
+         //0: HOME
 	// 1: SWITCH
-	// 2: PORTAL 
-	// 3: SCALE
-	// 4: CLIMB
+	// 2: SCALE
+	// 3: CLIMB
 public class MoveElevator extends Command {
 
 	private int goal;
 	private int currentLocation;
-	private int direction;
-	Elevator elevator;
-	double[] speed = RobotMap.speeds;
+	private double speedUp = 0.5;
+	private double speedDown = -0.05;
+	private double speed=0.11;
     public MoveElevator(int goal) {
-       requires(Robot.elevator);
-       elevator = Robot.elevator;
+        requires(Robot.elevator);
        this.goal = goal;
+       currentLocation = Robot.elevator.currentLocation();
     }
 
     protected void initialize() {
-    	if(elevator.updateStatus()<0)
-    		cancel();
+    	//if(currentLocation<0)
+    		//cancel();
+    	
+    	System.out.println("Current Location: " + currentLocation);
+    	
+    	if(goal > currentLocation)
+    		speed = speedUp;
+    	
+    	
+    	else
+    		speed = speedDown;
     }
 
     protected void execute() {
     	
-    	if(elevator.updateStatus()>=0)
-    	{
-    		currentLocation = elevator.updateStatus();
-    	}
     	
-  
+    	System.out.println("Move Elevator Running");
     	
-    	int distance = Math.abs(goal - currentLocation);
-    	
-    	if(goal>currentLocation)
-    		direction = 1;
-    	    	
-    	if(goal<currentLocation)
-    		direction = -1;
-    	
-    	
-		elevator.move(direction * speed[distance]);
+    	System.out.println(speed);
+		Robot.elevator.move(speed);
    	
     }
 
     protected boolean isFinished() {
-    	return elevator.atLocation(goal, currentLocation);
+    	return Robot.elevator.getLimit(goal);
     }
 
     protected void end() {
-    	elevator.stop();
+    	Robot.elevator.stall();
     }
 
     protected void interrupted() {
-    	elevator.stop();
+    	Robot.elevator.stall();
     }
 }

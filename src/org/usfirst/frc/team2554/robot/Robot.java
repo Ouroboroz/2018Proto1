@@ -23,16 +23,14 @@ import org.usfirst.frc.team2554.robot.subsystems.*;
  */
 public class Robot extends IterativeRobot {
 
-	public static OI oi;
-	public RobotDrive myRobot;
+	
 	Command autonomousCommand; 
-	int test; 
-	Timer timer;
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final Elevator elevator = new Elevator();
-	public static final Claw claw = new Claw();
 
-	//SendableChooser<Command> chooser = new SendableChooser<>();
+	public static  DriveTrain driveTrain = new DriveTrain();
+	public static  Elevator elevator = new Elevator();
+	public static  Claw claw = new Claw();
+	public static  Ratchet ratchet = new Ratchet();
+	public static OI oi = new OI();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -41,9 +39,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		timer = new Timer ();
-		oi = new OI();
-		driveTrain.gyro.calibrate();
+		
 
 	}
 
@@ -89,7 +85,6 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 
-		driveTrain.gyro.calibrate();
 
 	}
 
@@ -110,6 +105,7 @@ public class Robot extends IterativeRobot {
 	public void log()
 	{
 		elevator.log();
+		ratchet.log();
 		driveTrain.log();
 		claw.log();
 	}

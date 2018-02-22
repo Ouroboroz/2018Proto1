@@ -26,8 +26,7 @@ public class DistanceDriveAlternatePID extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.driveTrain.resetGyro();
-        Robot.driveTrain.resetDistance();
+    	Robot.driveTrain.resetDriveTrain();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -51,17 +50,16 @@ public class DistanceDriveAlternatePID extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-        Robot.driveTrain.resetGyro();
-        Robot.driveTrain.resetDistance();
-        Robot.driveTrain.myDrive.tankDrive(0,0);
+    	Robot.driveTrain.resetDriveTrain();
+        Robot.driveTrain.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        Robot.driveTrain.resetGyro();
-        Robot.driveTrain.resetDistance();
-        Robot.driveTrain.myDrive.tankDrive(0,0);
+    	Robot.driveTrain.resetDriveTrain();
+        Robot.driveTrain.stop();
+
         
     }
     
