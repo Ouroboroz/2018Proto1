@@ -26,11 +26,12 @@ public class Robot extends IterativeRobot {
 	
 	Command autonomousCommand; 
 
-	public static  DriveTrain driveTrain = new DriveTrain();
-	public static  Elevator elevator = new Elevator();
-	public static  Claw claw = new Claw();
-	public static  Ratchet ratchet = new Ratchet();
-	public static OI oi = new OI();
+	public static  DriveTrain driveTrain;
+	public static  Elevator elevator;
+	public static  Claw claw;
+	public static  Ratchet ratchet;
+	public static OI oi ;
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -39,6 +40,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
+		driveTrain = new DriveTrain();
+		elevator = new Elevator();
+		claw = new Claw();
+		ratchet = new Ratchet();
+		oi = new OI();
 		
 
 	}
@@ -52,7 +58,6 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 
 	}
-
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
@@ -62,6 +67,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 
+		autonomousCommand = new DistanceDriveAlternatePID(217);
+
+	
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 
@@ -70,6 +78,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
+	
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();

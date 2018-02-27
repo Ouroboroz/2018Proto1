@@ -3,6 +3,7 @@ package org.usfirst.frc.team2554.robot.commands;
 import org.usfirst.frc.team2554.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,7 +20,7 @@ public class ManualElevator extends Command {
 
     protected void execute() {
     	
-    	double speed = Robot.oi.elevatorControl()*0.4;
+    	double speed = Robot.oi.elevatorControl()*0.888;
     	System.out.println(speed);
     	System.out.println(Robot.elevator.currentLocation() >= 0);
     	System.out.println( !Robot.oi.limitSwitchBypass());
@@ -31,9 +32,13 @@ public class ManualElevator extends Command {
     	else
     	{
         	//Robot.elevator.move(speed + -1*Robot.elevator.holdingPower);
+    		SmartDashboard.putNumber("Input Value", speed);
+    		SmartDashboard.putNumber("Holding Power", -1*Robot.elevator.holdingPower);
+        	SmartDashboard.putNumber("Actual Speed", (speed + -1*Robot.elevator.holdingPower)*-1);
         	Robot.elevator.elevatorMotor1.set((speed + -1*Robot.elevator.holdingPower)*-1);
         	Robot.elevator.elevatorMotor2.set((speed + -1*Robot.elevator.holdingPower)*-1);
-
+        
+        	
     	}
     }
 

@@ -98,7 +98,6 @@ public class Elevator extends Subsystem {
 	
 	public void log()
 	{
-		
 		SmartDashboard.putBoolean("Limit 0", limit[0].get());
 		SmartDashboard.putBoolean("Limit 1", limit[1].get());
 		SmartDashboard.putBoolean("Limit 2", limit[2].get());

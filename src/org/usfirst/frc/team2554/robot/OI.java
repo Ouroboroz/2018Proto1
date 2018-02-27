@@ -34,7 +34,7 @@ public class OI {
 	public Joystick rightStick = new Joystick(1);
 	public Joystick mechController = new Joystick(2);
 	
-	//BUTTONS !!!!!!
+	//BUTTONS 
 	
 	
 	// Levels
@@ -50,7 +50,7 @@ public class OI {
 	int toggleRatchetButton = 6;
 	
 	
-	//AXES !!!!!!!!!!!!
+	//AXES 
 	
 	//Claw
 	int intakeControl = 2;
@@ -58,7 +58,7 @@ public class OI {
 
 	
 	//Elevator
-	int elevatorControl = 5;
+	int elevatorControl = 1;
 	
 	
 	public Button home = new JoystickButton(mechController, buttonHome);

@@ -30,6 +30,10 @@ public class DriveTrain extends Subsystem {
 		encoderLeft.setDistancePerPulse(distancePerPulse);
 		encoderRight.setMaxPeriod(.1);
 		encoderLeft.setMaxPeriod(.1);
+		encoderRight.setReverseDirection(false);
+		encoderLeft.setReverseDirection(true);
+		encoderRight.reset();
+		encoderLeft.reset();
 	}
 
 	Victor frontLeft = new Victor(RobotMap.driveTrain[0]);
@@ -99,7 +103,10 @@ public class DriveTrain extends Subsystem {
 
 	public double getDistance()
 	{
+		
 		return ((encoderLeft.getDistance()+encoderRight.getDistance())/2);
+
+		
 	}
 
 	public void resetDriveTrain()
@@ -113,7 +120,17 @@ public class DriveTrain extends Subsystem {
 	{
 		SmartDashboard.putNumber("Angle", getGyroAngle());
 		SmartDashboard.putNumber("Distance", getDistance());
+		SmartDashboard.putNumber("Left Distance", encoderLeft.getDistance());
+		SmartDashboard.putNumber("Right Distance", encoderRight.getDistance());
 		SmartDashboard.putNumber("Left Speed", encoderLeft.getRate());
 		SmartDashboard.putNumber("Right Speed", encoderRight.getRate());
+		SmartDashboard.putNumber("Speed Difference" , encoderLeft.getRate()-encoderRight.getRate());
+		SmartDashboard.putNumber("Raw Count Right", encoderRight.get());
+		SmartDashboard.putNumber("Raw Count Left", encoderLeft.get());
+		SmartDashboard.putNumber("Scaling Left", encoderLeft.getEncodingScale());
+		SmartDashboard.putNumber("Scaling Right", encoderRight.getEncodingScale());
+		
+
+		
 	}
 }

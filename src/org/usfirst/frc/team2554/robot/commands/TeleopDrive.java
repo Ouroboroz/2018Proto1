@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TeleopDrive extends Command {
 
-	double sensitivity = 0.8;
+	double sensitivity = 0.6;
 	final public double DEADZONE = 0.15;
     public TeleopDrive() {
 

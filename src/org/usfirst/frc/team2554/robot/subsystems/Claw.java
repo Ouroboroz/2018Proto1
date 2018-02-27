@@ -4,6 +4,7 @@ import org.usfirst.frc.team2554.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -16,17 +17,19 @@ public class Claw extends Subsystem {
     Victor leftMotor = new Victor(RobotMap.claw[0]);
     Victor rightMotor = new Victor(RobotMap.claw[1]);
     
-    Victor winch = new Victor(RobotMap.winch);
-    Encoder winchTracker = new Encoder(RobotMap.encoderWinch[0], RobotMap.encoderWinch[1]);
+    Victor winchMotor = new Victor(RobotMap.winch);
+    public Encoder winchTracker = new Encoder(RobotMap.encoderWinch[0], RobotMap.encoderWinch[1]);
+    public DigitalInput winchLimit = new DigitalInput(RobotMap.winchLimit);
     
-    public double uprightToFlatDistance;
-    public double distancePulse;
-   
+    public double topToBottomDist;
+    
+    
+    
+
 
     public void initDefaultCommand() {
     	
-    	winchTracker.setDistancePerPulse(distancePulse);
-    	winchTracker.setMaxPeriod(0.1);
+    	
      
     }
     public Claw() {
@@ -58,6 +61,22 @@ public class Claw extends Subsystem {
     public void log()
     {
     	SmartDashboard.putNumber("Claw Speed", leftMotor.get());
+    }
+    
+    public void goDown()
+    {
+    	winchTracker.reset();
+    	winchMotor.set(-0.5);
+    }
+    
+    public void goUp()
+    {
+    	winchMotor.set(0.5);
+    }
+    
+    public void stopWinch()
+    {
+    	winchMotor.set(0);
     }
 }
 
