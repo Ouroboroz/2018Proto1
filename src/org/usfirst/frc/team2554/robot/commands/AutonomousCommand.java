@@ -33,32 +33,32 @@ public class AutonomousCommand extends CommandGroup {
     				addSequential(new MoveElevator(1));			
             		if(direction == 1) //If the scale is on the right
             		{
-            			addSequential(new DistanceDrive(150));
+            			addSequential(new DistanceDriveFinal(150));
             			addSequential(new RotateToAngle(-90));
-            			addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDriveFinal(41));
             		}
             		else //If the scale is on the left
             		{
-            			addSequential(new DistanceDrive(209));
+            			addSequential(new DistanceDriveFinal(209));
             			addSequential(new RotateToAngle(-90));
-            			addSequential(new DistanceDrive(264));
+            			addSequential(new DistanceDriveFinal(264));
             			addSequential(new RotateToAngle(-90));
-            			addSequential(new DistanceDrive(61));
+            			addSequential(new DistanceDriveFinal(61));
             			addSequential(new RotateToAngle(-90));
-            			addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDriveFinal(41));
             		}
     				break;
     			}
     			case 1://Middle
     			{
     				addSequential(new MoveElevator(1));
-            		addSequential(new DistanceDrive(60));
+            		addSequential(new DistanceDriveFinal(60));
             		addSequential(new RotateToAngle(90*direction));
-            		addSequential(new DistanceDrive(132));
+            		addSequential(new DistanceDriveFinal(132));
             		addSequential(new RotateToAngle(-90*direction));
-            		addSequential(new DistanceDrive(69));
+            		addSequential(new DistanceDriveFinal(69));
             		addSequential(new RotateToAngle(-90*direction));
-            		addSequential(new DistanceDrive(41));
+            		addSequential(new DistanceDriveFinal(41));
     				break;
     			}
     			case 2://Left
@@ -66,19 +66,19 @@ public class AutonomousCommand extends CommandGroup {
     				addSequential(new MoveElevator(1));			
             		if(direction == 1) //If the scale is on the right
             		{
-            			addSequential(new DistanceDrive(209));
+            			addSequential(new DistanceDriveFinal(209));
             			addSequential(new RotateToAngle(90));
-            			addSequential(new DistanceDrive(264));
+            			addSequential(new DistanceDriveFinal(264));
             			addSequential(new RotateToAngle(90));
-            			addSequential(new DistanceDrive(61));
+            			addSequential(new DistanceDriveFinal(61));
             			addSequential(new RotateToAngle(90));
-            			addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDriveFinal(41));
             		}
             		else //If the scale is on the left
             		{
-            			addSequential(new DistanceDrive(150));
+            			addSequential(new DistanceDriveFinal(150));
             			addSequential(new RotateToAngle(90));
-            			addSequential(new DistanceDrive(41));
+            			addSequential(new DistanceDriveFinal(41));
             		}
     				break;
     			}
@@ -90,22 +90,6 @@ public class AutonomousCommand extends CommandGroup {
 
     		
     		
-    		
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+    
     }
 }

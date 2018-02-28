@@ -125,10 +125,7 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Left Speed", encoderLeft.getRate());
 		SmartDashboard.putNumber("Right Speed", encoderRight.getRate());
 		SmartDashboard.putNumber("Speed Difference" , encoderLeft.getRate()-encoderRight.getRate());
-		SmartDashboard.putNumber("Raw Count Right", encoderRight.get());
-		SmartDashboard.putNumber("Raw Count Left", encoderLeft.get());
-		SmartDashboard.putNumber("Scaling Left", encoderLeft.getEncodingScale());
-		SmartDashboard.putNumber("Scaling Right", encoderRight.getEncodingScale());
+
 		
 
 		

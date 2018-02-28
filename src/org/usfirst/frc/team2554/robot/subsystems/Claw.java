@@ -14,69 +14,70 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
  */
 public class Claw extends Subsystem {
 
-    Victor leftMotor = new Victor(RobotMap.claw[0]);
-    Victor rightMotor = new Victor(RobotMap.claw[1]);
-    
-    Victor winchMotor = new Victor(RobotMap.winch);
-    public Encoder winchTracker = new Encoder(RobotMap.encoderWinch[0], RobotMap.encoderWinch[1]);
-    public DigitalInput winchLimit = new DigitalInput(RobotMap.winchLimit);
-    
-    public double topToBottomDist;
-    
-    
-    
+	Victor leftMotor = new Victor(RobotMap.claw[0]);
+	Victor rightMotor = new Victor(RobotMap.claw[1]);
+
+	Victor winchMotor = new Victor(RobotMap.winch);
+	public Encoder winchTracker = new Encoder(RobotMap.encoderWinch[0], RobotMap.encoderWinch[1]);
+	public DigitalInput winchLimit = new DigitalInput(RobotMap.winchLimit);
+
+	public double topToBottomDist = 128 ;
+
+	public double currentLocation = 0;
 
 
-    public void initDefaultCommand() {
-    	
-    	
-     
-    }
-    public Claw() {
-    		
-    }
-   
-    public void setSpeed(double speed)
-    {
-    	leftMotor.set(speed); 
-    	rightMotor.set(speed);
-    }
-    
-    public void stop()
-    {
-    	leftMotor.set(0);
-    	rightMotor.set(0);
-    }
-    
-    public double distance()
-    {
-    	return winchTracker.getDistance();
-    }
-    
-    public void reset()
-    {
-    	winchTracker.reset();
-    }
- 
-    public void log()
-    {
-    	SmartDashboard.putNumber("Claw Speed", leftMotor.get());
-    }
-    
-    public void goDown()
-    {
-    	winchTracker.reset();
-    	winchMotor.set(-0.5);
-    }
-    
-    public void goUp()
-    {
-    	winchMotor.set(0.5);
-    }
-    
-    public void stopWinch()
-    {
-    	winchMotor.set(0);
-    }
+
+	public void initDefaultCommand() {
+
+
+
+	}
+	public Claw() {
+
+	}
+
+	public void setSpeed(double speed)
+	{
+		leftMotor.set(speed); 
+		rightMotor.set(speed);
+	}
+
+	public void stop()
+	{
+		leftMotor.set(0);
+		rightMotor.set(0);
+	}
+
+	public double distance()
+	{
+		return winchTracker.getDistance();
+	}
+
+	public void reset()
+	{
+		winchTracker.reset();
+	}
+
+	public void log()
+	{
+		SmartDashboard.putNumber("Claw Speed", leftMotor.get());
+		SmartDashboard.putBoolean("Claw Limit", winchLimit.get());
+	}
+
+	public void goDown()
+	{
+		winchTracker.reset();
+		winchMotor.set(-0.5);
+	}
+
+	public void goUp()
+	{
+		winchMotor.set(0.5);
+	}
+
+	public void stopWinch()
+	{
+		winchMotor.set(0);
+	}
 }
 

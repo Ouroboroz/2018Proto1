@@ -41,7 +41,6 @@ public class OI {
 	int buttonHome = 1;
 	int buttonSwitch = 2;
 	int buttonScale = 3;
-	int buttonClimb = 4;
 	
 	
 
@@ -64,7 +63,6 @@ public class OI {
 	public Button home = new JoystickButton(mechController, buttonHome);
     public Button switche = new JoystickButton(mechController, buttonSwitch);
     public Button scale = new JoystickButton(mechController, buttonScale);
-    public Button climb = new JoystickButton(mechController, buttonClimb);
     
    
     public Button toggleRatchet = new JoystickButton(mechController, toggleRatchetButton);
@@ -121,7 +119,6 @@ public class OI {
 		home.whenPressed(new MoveElevator(0));
 		switche.whenPressed(new MoveElevator(1));
 		scale.whenPressed(new MoveElevator(2));
-		climb.whenPressed(new MoveElevator(3));
 		
 		toggleRatchet.whenPressed(new ToggleRatchet(!Robot.ratchet.ratchetStatus));
 

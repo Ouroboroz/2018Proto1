@@ -15,8 +15,8 @@ public class RobotMap {
 	public static int[] spark = {9};
 	
 	
-	public static int[] limitSwitches = {5,6,7,8};
-	public static int winchLimit = 20;
+	public static int[] limitSwitches = {5,6,7};
+	public static int winchLimit = 8;
 	public static int[] encoderLeft = {0,1};
 	public static int[] encoderRight = {2,3};
 	public static int[] encoderWinch = {4, 9};

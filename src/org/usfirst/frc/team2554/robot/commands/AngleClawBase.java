@@ -16,6 +16,10 @@ public class AngleClawBase extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.claw.currentLocation == 0)
+    		cancel();
+    	
+    	
     	Robot.claw.winchTracker.reset();
     }
 
@@ -26,12 +30,12 @@ public class AngleClawBase extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.claw.winchTracker.get() > Robot.claw.topToBottomDist;
+        return Robot.claw.winchTracker.get() >= Robot.claw.topToBottomDist;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.claw.winchTracker.reset();
+    	Robot.claw.currentLocation = 0;
     	Robot.claw.stopWinch();
 
 
@@ -40,7 +44,6 @@ public class AngleClawBase extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.claw.winchTracker.reset();
     	Robot.claw.stopWinch();
 
 
