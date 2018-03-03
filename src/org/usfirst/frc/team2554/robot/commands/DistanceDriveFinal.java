@@ -28,7 +28,7 @@ public class DistanceDriveFinal extends PIDCommand {
 	double timeOnTarget = 0.2;
 	
 	PIDController SpeedPID = getPIDController();
-	public DistanceDriveFinal(int dist) {
+	public DistanceDriveFinal(double dist) {
 		super(0,0,0);
 		distance = dist;
 		SpeedPID.setPID(p, i, d);

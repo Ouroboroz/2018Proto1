@@ -24,7 +24,7 @@ public class DriveTrain extends Subsystem {
 
 	public DriveTrain()
 	{
-		double distancePerPulse = (6.0 * Math.PI) / 128;
+		double distancePerPulse = ((6.0 * Math.PI) / 128) / 12; //Feet
 		gyro.calibrate();
 		encoderRight.setDistancePerPulse(distancePerPulse);
 		encoderLeft.setDistancePerPulse(distancePerPulse);
