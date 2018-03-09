@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2554.robot.commands;
+package org.usfirst.frc.team2554.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
@@ -32,13 +32,8 @@ public class DistanceDriveFinal extends PIDCommand {
 		super(0,0,0,0.002);
 		distance = dist;
 		
-		double kP = SmartDashboard.getNumber("kP", p);
-		double kI = SmartDashboard.getNumber("kI", i);
-		double kD = SmartDashboard.getNumber("kD", d);
-		straightKp = SmartDashboard.getNumber("StraightCorrection", straightKp);
 		
-		SpeedPID.setPID(kP, kI, kD);
-    	SpeedPID.setOutputRange(-0.6, 0.6);
+    	SpeedPID.setOutputRange(-0.8, 0.8);
     	SpeedPID.setAbsoluteTolerance(1.0f);
 		SpeedPID.setSetpoint(distance);
 	
@@ -47,6 +42,11 @@ public class DistanceDriveFinal extends PIDCommand {
 	
 
 	protected void initialize() {
+		double kP = SmartDashboard.getNumber("kP", p);
+		double kI = SmartDashboard.getNumber("kI", i);
+		double kD = SmartDashboard.getNumber("kD", d);
+		straightKp = SmartDashboard.getNumber("StraightCorrection", straightKp);
+		SpeedPID.setPID(kP, kI, kD);
 		System.out.println("Command Started");
 		System.out.println(SpeedPID.getP());
 	}

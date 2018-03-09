@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2554.robot.commands;
+package org.usfirst.frc.team2554.robot.commands.Elevator;
 
 import org.usfirst.frc.team2554.robot.Robot;
 import org.usfirst.frc.team2554.robot.RobotMap;
@@ -22,7 +22,15 @@ public class HoldElevator extends Command {
     }
 
     protected void execute() {
-    	Robot.elevator.stall();
+    	
+    	if(Robot.elevator.getLimit(0))
+    	{
+    		Robot.elevator.stop();
+    	}
+    	else
+    	{
+    		Robot.elevator.stall();
+    	}	
     }
 
     protected boolean isFinished() {

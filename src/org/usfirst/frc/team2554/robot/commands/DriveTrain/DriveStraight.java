@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2554.robot.commands;
+package org.usfirst.frc.team2554.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
@@ -14,17 +14,21 @@ public class DriveStraight extends PIDCommand {
 	
 	double speed;
 	double distance;
+	boolean endStop;
 	PIDController StraightPID = getPIDController();
-	public DriveStraight(double distance, double speed) {
-		super(.07,.05,.3);
+	public DriveStraight(double distance, double speed, boolean stop, double heading) {
+		super(0.1,0,.225,0.02); //p = 0.08
 		this.speed = speed;
-		this.distance = distance;
+		if(stop)
+			this.distance = distance-0.9166;
+		else
+			this.distance = distance;
 		getPIDController().setInputRange(-180,180);
 		getPIDController().setOutputRange(-1, 1);
-		getPIDController().setPercentTolerance(0.5);
-		getPIDController().setSetpoint(0);
+		getPIDController().setSetpoint(heading);
 		getPIDController().setContinuous(true);
 		requires(Robot.driveTrain);
+		endStop = stop;
 	}
 
 	protected void initialize() {
@@ -39,17 +43,21 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double rotation) {
+		System.out.println("Error" + (distance - Robot.driveTrain.getDistance()));
 	Robot.driveTrain.myDrive.arcadeDrive(speed, rotation);
 	}
 
 	@Override
 	protected boolean isFinished() {
 	
-		return (Robot.driveTrain.getDistance() > distance);
+		return (Robot.driveTrain.getDistance() >= distance);
 	}
 	
 
 	protected void end(){
+		
+		if(endStop)
+			Robot.driveTrain.stop();
 		
 	}
 	

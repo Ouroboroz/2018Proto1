@@ -1,9 +1,9 @@
 package org.usfirst.frc.team2554.robot.commands.auto;
 
-import org.usfirst.frc.team2554.robot.commands.DistanceDriveFinal;
-import org.usfirst.frc.team2554.robot.commands.MoveElevator;
-import org.usfirst.frc.team2554.robot.commands.RotateToAngle;
-import org.usfirst.frc.team2554.robot.commands.ShootCube;
+import org.usfirst.frc.team2554.robot.commands.Claw.ShootCube;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.DistanceDriveFinal;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
+import org.usfirst.frc.team2554.robot.commands.Elevator.MoveElevator;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class OppositeSideScale extends CommandGroup {
 
     public OppositeSideScale(int side) {
-    	addParallel(new MoveElevator(1));
+    	addParallel(new MoveElevator(3));
     	addSequential(new DistanceDriveFinal(17.5));
     	addSequential(new RotateToAngle(-90*side));
     	addSequential(new DistanceDriveFinal(21));

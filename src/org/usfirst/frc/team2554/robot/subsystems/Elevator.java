@@ -2,7 +2,7 @@ package org.usfirst.frc.team2554.robot.subsystems;
 
 import org.usfirst.frc.team2554.robot.Robot;
 import org.usfirst.frc.team2554.robot.RobotMap;
-import org.usfirst.frc.team2554.robot.commands.HoldElevator;
+import org.usfirst.frc.team2554.robot.commands.Elevator.HoldElevator;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Spark;

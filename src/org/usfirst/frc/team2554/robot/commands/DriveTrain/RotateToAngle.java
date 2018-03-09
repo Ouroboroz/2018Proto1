@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2554.robot.commands;
+package org.usfirst.frc.team2554.robot.commands.DriveTrain;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDCommand;
@@ -23,12 +23,12 @@ public class RotateToAngle extends PIDCommand {
 		Robot.driveTrain.resetDriveTrain();
 		double P = SmartDashboard.getNumber("P", 0.08);
 		double I = SmartDashboard.getNumber("I", 0);
-		double D = SmartDashboard.getNumber("D", .2);
+		double D = SmartDashboard.getNumber("D", .225);
 		getPIDController().setPID(P, I, D);
 		angle = angle1;
 		getPIDController().setInputRange(-180,180);
 		getPIDController().setOutputRange(-0.75, 0.75);
-		getPIDController().setAbsoluteTolerance(3);
+		getPIDController().setAbsoluteTolerance(2);
 		getPIDController().setSetpoint(angle);
 		getPIDController().setContinuous(true);
 		requires(Robot.driveTrain);
@@ -39,17 +39,12 @@ public class RotateToAngle extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		//System.out.println(angle-Robot.driveTrain.getGyroAngle());
-		System.out.println("Angle: " + Robot.driveTrain.getGyroAngle());
 		return Robot.driveTrain.getGyroAngle();
 	}
 
 	@Override
 	protected void usePIDOutput(double speed) {
-		System.out.println("Speed: " + speed);
-		System.out.println("hah");
 		Robot.driveTrain.myDrive.arcadeDrive(0,1*speed );
-		System.out.println("Error: " + getPIDController().getError());
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package org.usfirst.frc.team2554.robot.subsystems;
 
 
 import org.usfirst.frc.team2554.robot.*;
-import org.usfirst.frc.team2554.robot.commands.TeleopDrive;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.TeleopDrive;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
@@ -97,19 +97,18 @@ public class DriveTrain extends Subsystem {
 
 	public double getGyroAngle()
 	{
-		return round(gyro.getAngle(), 1);
+		return gyro.getAngle();
 	}
 
 
 	public double getDistance()
 	{
 		double currentOutput = (encoderLeft.getDistance()+encoderRight.getDistance())/2;
-		return (round(currentOutput, 1));
+		return (currentOutput);
 	}
 
 	public void resetDriveTrain()
 	{
-		gyro.reset();
 		encoderLeft.reset();
 		encoderRight.reset();
 	}
@@ -127,8 +126,5 @@ public class DriveTrain extends Subsystem {
 		
 	}
 	
-	private double round (double value, int precision) {
-	    int scale = (int) Math.pow(10, precision);
-	    return (double) Math.round(value * scale) / scale;
-	}
+
 }

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2554.robot.commands.*;
+import org.usfirst.frc.team2554.robot.commands.auto.AutoTest;
 import org.usfirst.frc.team2554.robot.commands.auto.CenterLineCross;
 import org.usfirst.frc.team2554.robot.commands.auto.CenterSwitch;
 import org.usfirst.frc.team2554.robot.commands.auto.OppositeSideSwitch;
@@ -81,11 +82,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-<<<<<<< HEAD
-		autonomousCommand = new DistanceDriveFinal(7);
 		Robot.driveTrain.resetDriveTrain();
-=======
-
+/*
 		int robotLocation = LocationChooser.getSelected();
 		if(message.length()<2)
 		{		
@@ -101,7 +99,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new SideLineCross();
 		
 		else if (robotLocation == 200)
-			autonomousCommand = new CenterLineCross();
+			autonomousCommand = new CenterLineCross(1);
 			
 		
 		else
@@ -128,9 +126,16 @@ public class Robot extends IterativeRobot {
 					 
 			}
 		}
+		*/
+		
+		//autonomousCommand = new DistanceDriveFinal(7);
+		
+		//autonomousCommand = new DriveStraight(7,0.8);
 		
 		
->>>>>>> refs/remotes/origin/Autos
+		//autonomousCommand = new RotateToAngle(90);
+		
+		autonomousCommand=new AutoTest();
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 
@@ -175,9 +180,9 @@ public class Robot extends IterativeRobot {
 
 	public void log()
 	{
-		elevator.log();
-		driveTrain.log();
-		claw.log();
+		//elevator.log();
+		//driveTrain.log();
+		//claw.log();
 	}
 
 

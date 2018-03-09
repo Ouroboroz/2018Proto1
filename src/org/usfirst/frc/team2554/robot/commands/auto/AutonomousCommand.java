@@ -1,4 +1,9 @@
-package org.usfirst.frc.team2554.robot.commands;
+package org.usfirst.frc.team2554.robot.commands.auto;
+
+import org.usfirst.frc.team2554.robot.commands.Claw.Shooter;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.DistanceDriveFinal;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
+import org.usfirst.frc.team2554.robot.commands.Elevator.MoveElevator;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;

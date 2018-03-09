@@ -1,28 +1,28 @@
 package org.usfirst.frc.team2554.robot.commands.auto;
 
+import org.usfirst.frc.team2554.robot.commands.Claw.ShootCube;
+import org.usfirst.frc.team2554.robot.commands.Claw.Shooter;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.DistanceDriveFinal;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
+import org.usfirst.frc.team2554.robot.commands.Elevator.MoveElevator;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ *CHANGGEEEE THIS 
  */
 public class OppositeSideSwitch extends CommandGroup {
 
     public OppositeSideSwitch(int side) {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+       
+    	addSequential(new DistanceDriveFinal(19.17));
+		addParallel(new MoveElevator(1));
+		addSequential(new RotateToAngle(-90*side));
+		addSequential(new DistanceDriveFinal(21));
+		addSequential(new RotateToAngle(90*side));
+		addSequential(new DistanceDriveFinal(5.084));
+		addSequential(new RotateToAngle(90*side));
+		addSequential(new DistanceDriveFinal(2.84));
+        addSequential(new ShootCube(3));
     }
 }

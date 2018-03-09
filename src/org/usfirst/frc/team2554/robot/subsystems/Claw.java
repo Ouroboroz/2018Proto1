@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2554.robot.subsystems;
 import org.usfirst.frc.team2554.robot.RobotMap;
+import org.usfirst.frc.team2554.robot.commands.Claw.WinchHolding;
+import org.usfirst.frc.team2554.robot.commands.Elevator.HoldElevator;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,6 +30,7 @@ public class Claw extends Subsystem {
 
 	public void initDefaultCommand() {
 
+		setDefaultCommand(new WinchHolding());
 
 
 	}

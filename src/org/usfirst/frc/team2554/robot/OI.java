@@ -6,12 +6,15 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team2554.robot.commands.BaseAngle;
-import org.usfirst.frc.team2554.robot.commands.ManualElevator;
-import org.usfirst.frc.team2554.robot.commands.MoveElevator;
-import org.usfirst.frc.team2554.robot.commands.Retrieve;
-import org.usfirst.frc.team2554.robot.commands.ScaleAngle;
-import org.usfirst.frc.team2554.robot.commands.Shooter;
+
+import org.usfirst.frc.team2554.robot.commands.Claw.BaseAngle;
+import org.usfirst.frc.team2554.robot.commands.Claw.Retrieve;
+import org.usfirst.frc.team2554.robot.commands.Claw.ScaleAngle;
+import org.usfirst.frc.team2554.robot.commands.Claw.Shooter;
+import org.usfirst.frc.team2554.robot.commands.Claw.WinchDown;
+import org.usfirst.frc.team2554.robot.commands.Claw.WinchUp;
+import org.usfirst.frc.team2554.robot.commands.Elevator.ManualElevator;
+import org.usfirst.frc.team2554.robot.commands.Elevator.MoveElevator;
 import org.usfirst.frc.team2554.robot.subsystems.Elevator;
 import org.usfirst.frc.team2554.robot.triggers.Intake;
 import org.usfirst.frc.team2554.robot.triggers.ManualControl;
@@ -38,14 +41,14 @@ public class OI {
 	
 	
 	// Levels
-	int buttonHome = 3;
-	int buttonSwitch = 1;
-	int buttonScale = 2;
+	int buttonHome = 1;
+	int buttonSwitch = 2;
+	int buttonScale = 4;
 	
 	
 
 	//Elevator
-	int toggleRatchetButton = 4;
+	int toggleRatchetButton = 3;
 	
 	
 	//Winch
@@ -123,8 +126,8 @@ public class OI {
 		scale.whenPressed(new MoveElevator(2));
 		
 
-	//	winchUp.whenPressed(new ScaleAngle());
-	//	winchDown.whenPressed(new BaseAngle());	
+		winchUp.whileHeld(new WinchUp());
+		winchDown.whileHeld(new WinchDown());	
 		
 		manualControl.whileActive(new ManualElevator());
 		intake.whileActive(new Retrieve());
