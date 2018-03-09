@@ -12,6 +12,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2554.robot.commands.*;
+import org.usfirst.frc.team2554.robot.commands.auto.CenterLineCross;
+import org.usfirst.frc.team2554.robot.commands.auto.CenterSwitch;
+import org.usfirst.frc.team2554.robot.commands.auto.OppositeSideSwitch;
+import org.usfirst.frc.team2554.robot.commands.auto.SameSideScale;
+import org.usfirst.frc.team2554.robot.commands.auto.SameSideSwitch;
+import org.usfirst.frc.team2554.robot.commands.auto.SideLineCross;
 import org.usfirst.frc.team2554.robot.subsystems.*;
 
 /**
@@ -25,6 +31,8 @@ public class Robot extends IterativeRobot {
 
 	
 	Command autonomousCommand; 
+	SendableChooser<Integer> LocationChooser = new SendableChooser<>();
+	String message;
 
 	public static  DriveTrain driveTrain;
 	public static  Elevator elevator;
@@ -43,8 +51,12 @@ public class Robot extends IterativeRobot {
 		elevator = new Elevator();
 		claw = new Claw();
 		oi = new OI();
-		
-
+		LocationChooser.addObject("Left", -1);
+		LocationChooser.addObject("Middle", 0);
+		LocationChooser.addObject("Right", 1);
+		LocationChooser.addObject("Side Cross", 100);
+		LocationChooser.addObject("Middle Cross", 200);
+		SmartDashboard.putData("Location", LocationChooser);
 	}
 
 	/**
@@ -59,13 +71,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		do
+		{
+			 message = DriverStation.getInstance().getGameSpecificMessage();
+		}
+		while(message.length() < 2);
 	}
 
 
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = new DistanceDriveFinal(7);
-		Robot.driveTrain.resetDriveTrain();
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 
