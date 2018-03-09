@@ -12,6 +12,12 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2554.robot.commands.*;
+import org.usfirst.frc.team2554.robot.commands.auto.CenterLineCross;
+import org.usfirst.frc.team2554.robot.commands.auto.CenterSwitch;
+import org.usfirst.frc.team2554.robot.commands.auto.OppositeSideSwitch;
+import org.usfirst.frc.team2554.robot.commands.auto.SameSideScale;
+import org.usfirst.frc.team2554.robot.commands.auto.SameSideSwitch;
+import org.usfirst.frc.team2554.robot.commands.auto.SideLineCross;
 import org.usfirst.frc.team2554.robot.subsystems.*;
 
 /**
@@ -25,6 +31,8 @@ public class Robot extends IterativeRobot {
 
 	
 	Command autonomousCommand; 
+	SendableChooser<Integer> LocationChooser = new SendableChooser<>();
+	String message;
 
 	public static  DriveTrain driveTrain;
 	public static  Elevator elevator;
@@ -43,8 +51,12 @@ public class Robot extends IterativeRobot {
 		elevator = new Elevator();
 		claw = new Claw();
 		oi = new OI();
-		
-
+		LocationChooser.addObject("Left", -1);
+		LocationChooser.addObject("Middle", 0);
+		LocationChooser.addObject("Right", 1);
+		LocationChooser.addObject("Side Cross", 100);
+		LocationChooser.addObject("Middle Cross", 200);
+		SmartDashboard.putData("Location", LocationChooser);
 	}
 
 	/**
@@ -59,13 +71,66 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		do
+		{
+			 message = DriverStation.getInstance().getGameSpecificMessage();
+		}
+		while(message.length() < 2);
 	}
 
 
 	@Override
 	public void autonomousInit() {
+<<<<<<< HEAD
 		autonomousCommand = new DistanceDriveFinal(7);
 		Robot.driveTrain.resetDriveTrain();
+=======
+
+		int robotLocation = LocationChooser.getSelected();
+		if(message.length()<2)
+		{		
+			do {
+
+				message = DriverStation.getInstance().getGameSpecificMessage();
+			}
+			while(message.length() < 2);
+		} 
+		
+		
+		if(robotLocation == 100)
+			autonomousCommand = new SideLineCross();
+		
+		else if (robotLocation == 200)
+			autonomousCommand = new CenterLineCross();
+			
+		
+		else
+		{
+			int switchLocation = (message.charAt(0) == 'L') ? -1 : 1;
+			int scaleLocation =  (message.charAt(1) == 'L') ? -1 : 1;
+			
+			if(robotLocation == 0) // Robot in the middle 
+			{
+				autonomousCommand = new CenterSwitch(robotLocation);
+			}
+			
+			
+			else
+			{
+				if(robotLocation == scaleLocation)
+					autonomousCommand = new SameSideScale(robotLocation);
+				
+				else if(robotLocation == switchLocation)
+					autonomousCommand = new SameSideSwitch(robotLocation);
+				
+				else
+					autonomousCommand = new OppositeSideSwitch(robotLocation);
+					 
+			}
+		}
+		
+		
+>>>>>>> refs/remotes/origin/Autos
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 
