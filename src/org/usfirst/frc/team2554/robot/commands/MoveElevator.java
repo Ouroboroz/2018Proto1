@@ -4,6 +4,7 @@ import org.usfirst.frc.team2554.robot.Robot;
 import org.usfirst.frc.team2554.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,49 +18,56 @@ public class MoveElevator extends Command {
 
 	private int goal;
 	private int currentLocation;
-	private double speedUp = 0.5;
-	private double speedDown = -0.05;
-	private double speed=0.11;
+	private double speedUp = 0.3;
+	private double speedDown = -0.2;
+	private double speed= 0;
     public MoveElevator(int goal) {
         requires(Robot.elevator);
        this.goal = goal;
-       currentLocation = Robot.elevator.currentLocation;
+       System.out.println(goal);
        
-      
     }
 
     protected void initialize() {
 
-    	 if(currentLocation<0)
-      	   cancel();
+    	currentLocation = Robot.elevator.currentLocation;
+        System.out.println("Current Location: " + currentLocation);
+       System.out.println("Goal: " + goal);
     	 
-    	System.out.println("Current Location: " + currentLocation);
     	
     	if(goal > currentLocation)
     		speed = speedUp;
     	
-    	
-    	else
+    	 if(goal < currentLocation)
     		speed = speedDown;
-    	
+ 
+
+    	 
     }
 
     protected void execute() {
     	
 		Robot.elevator.move(speed);
-   	
+	
+		int position = Robot.elevator.getCurrentLocation();
+    	
+    	if(position>=0)
+    		Robot.elevator.currentLocation = position;
     }
 
     protected boolean isFinished() {
     	return Robot.elevator.getLimit(goal);
+    	
     }
 
     protected void end() {
     	Robot.elevator.stall();
-    	Robot.elevator.currentLocation = goal;
+    	Robot.elevator.currentLocation = Robot.elevator.getCurrentLocation();
+    	System.out.println("Command Finished");
     }
 
     protected void interrupted() {
     	Robot.elevator.stall();
+    	System.out.println("Command Interuppted");
     }
 }

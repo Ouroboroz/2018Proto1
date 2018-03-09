@@ -17,7 +17,7 @@ public class DistanceDriveAlternatePID extends Command {
     double angleError;
     double correctionPower; 
     double straightKp = 0.03;
-    double speedKp = 0.02;
+    double speedKp = 0.35;
     double distance = 0;
     PIDController velocityControl;
 
@@ -43,7 +43,7 @@ public class DistanceDriveAlternatePID extends Command {
         	
         double steeringSpeedRight = baseSpeed(Robot.driveTrain.getDistance()) + correctionPower;
         double steeringSpeedLeft = baseSpeed(Robot.driveTrain.getDistance()) - correctionPower;
-        
+        System.out.println("Speed Left: " + steeringSpeedLeft);
         Robot.driveTrain.myDrive.tankDrive(steeringSpeedLeft, steeringSpeedRight);
         
         
@@ -72,9 +72,7 @@ public class DistanceDriveAlternatePID extends Command {
         
         
         
-//        if(Robot.driveTrain.getDistance()>=distance)
-  //      	return true;
-        	//sdshdjsjdshjsjdskdjskdjskjds
+      
         return false;
     }
 
@@ -83,18 +81,14 @@ public class DistanceDriveAlternatePID extends Command {
         Robot.driveTrain.stop();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+
     protected void interrupted() {
     	Robot.driveTrain.resetDriveTrain();
         Robot.driveTrain.stop();
         
     }
     
-    protected void getSpeed()
-    {
-    	
-    }
+   
     
   
 

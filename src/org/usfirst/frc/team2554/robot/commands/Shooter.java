@@ -22,9 +22,9 @@ public class Shooter extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = Robot.oi.outtakeSpeed();
-    	double range = speed*0.6;
-    	Robot.claw.setSpeed(0.2 + range);
+    	double speed = -1*Robot.oi.outtakeSpeed();
+    	double range = speed*0.8;
+    	Robot.claw.setSpeed(-0.2 + range);
     }
 
     // Make this return true when this Command no longer needs to run execute()

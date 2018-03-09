@@ -45,11 +45,25 @@ public class AutonomousCommand extends CommandGroup {
 			{
 				if (switchClosePosition == -1) // Scoring the left side of the switch closest to the starting position
 				{
+					addSequential(new DistanceDriveFinal(19.17));
+					addParallel(new MoveElevator(1));
+					addSequential(new RotateToAngle(90*switchClosePosition));
+					addSequential(new DistanceDriveFinal(21));
+					addSequential(new RotateToAngle(-90*switchClosePosition));
+					addSequential(new DistanceDriveFinal(5.084));
+					addSequential(new RotateToAngle(-90*switchClosePosition));
+					addSequential(new DistanceDriveFinal(2.84));
+					addSequential(new Shooter());
 
 				}
 
 				if (switchClosePosition == 1) // Scoring the right side of the switch closest to the starting position
 				{
+					addSequential(new DistanceDriveFinal(12.5));
+					addParallel(new MoveElevator(1));
+					addSequential(new RotateToAngle(90 * switchClosePosition));
+					addSequential(new DistanceDriveFinal(2.84));
+					addSequential(new Shooter());
 
 				}
 			}
@@ -70,20 +84,30 @@ public class AutonomousCommand extends CommandGroup {
 		}
 		case 1:// Start in the middle of the field
 		{
-			if (scorePositionDashboard == 0) // Scoring the switch
+			if (scorePositionDashboard == -1) // Scoring the switch on the left side
 			{
-				addSequential(new DistanceDriveFinal(4.9166));
+				addSequential(new DistanceDriveFinal(4.75));
 				addParallel(new MoveElevator(1));
-				addSequential(new RotateToAngle(90 * switchClosePosition));
-				addSequential(new DistanceDriveFinal(132));
-				addSequential(new RotateToAngle(-90 * switchClosePosition));
-				addSequential(new DistanceDriveFinal(69));
-				addSequential(new RotateToAngle(-90 * switchClosePosition));
-				addSequential(new DistanceDriveFinal(41));
+				addSequential(new RotateToAngle(90*switchClosePosition));
+				addSequential(new DistanceDriveFinal(7.17));
+				addSequential(new RotateToAngle(-90*switchClosePosition));
+				addSequential(new DistanceDriveFinal(6.84));
+				addSequential(new RotateToAngle(-90*switchClosePosition));
+				addSequential(new DistanceDriveFinal(2.84));
+				addSequential(new Shooter());
 			}
 
-			if (scorePositionDashboard == 1) // Scoring the scale
+			if (scorePositionDashboard == 1) // Scoring the swicth on the right side 
 			{
+				addSequential(new DistanceDriveFinal(4.75));
+				addParallel(new MoveElevator(1));
+				addSequential(new RotateToAngle(90*switchClosePosition));
+				addSequential(new DistanceDriveFinal(7.17));
+				addSequential(new RotateToAngle(-90*switchClosePosition));
+				addSequential(new DistanceDriveFinal(6.84));
+				addSequential(new RotateToAngle(-90*switchClosePosition));
+				addSequential(new DistanceDriveFinal(2.84));
+				addSequential(new Shooter());	
 
 			}
 			break;
@@ -95,11 +119,25 @@ public class AutonomousCommand extends CommandGroup {
 			{
 				if (switchClosePosition == -1) // Scoring the left side of the switch closest to the starting position
 				{
+					addSequential(new DistanceDriveFinal(12.5));
+					addParallel(new MoveElevator(1));
+					addSequential(new RotateToAngle(90*switchClosePosition));
+					addSequential(new DistanceDriveFinal(2.84));
+					addSequential(new Shooter());
 
 				}
 
 				if (switchClosePosition == 1) // Scoring the right side of the switch closest to the starting position
 				{
+					addSequential(new DistanceDriveFinal(19.17));
+					addParallel(new MoveElevator(1));
+					addSequential(new RotateToAngle(90*switchClosePosition));
+					addSequential(new DistanceDriveFinal(21));
+					addSequential(new RotateToAngle(-90*switchClosePosition));
+					addSequential(new DistanceDriveFinal(5.084));
+					addSequential(new RotateToAngle(-90*switchClosePosition));
+					addSequential(new DistanceDriveFinal(2.84));
+					addSequential(new Shooter());
 
 				}
 			}

@@ -97,16 +97,14 @@ public class DriveTrain extends Subsystem {
 
 	public double getGyroAngle()
 	{
-		return gyro.getAngle();
+		return round(gyro.getAngle(), 1);
 	}
 
 
 	public double getDistance()
 	{
-		
-		return ((encoderLeft.getDistance()+encoderRight.getDistance())/2);
-
-		
+		double currentOutput = (encoderLeft.getDistance()+encoderRight.getDistance())/2;
+		return (round(currentOutput, 1));
 	}
 
 	public void resetDriveTrain()
@@ -122,12 +120,15 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Distance", getDistance());
 		SmartDashboard.putNumber("Left Distance", encoderLeft.getDistance());
 		SmartDashboard.putNumber("Right Distance", encoderRight.getDistance());
-		SmartDashboard.putNumber("Left Speed", encoderLeft.getRate());
-		SmartDashboard.putNumber("Right Speed", encoderRight.getRate());
-		SmartDashboard.putNumber("Speed Difference" , encoderLeft.getRate()-encoderRight.getRate());
+	//	SmartDashboard.putNumber("Left Speed", encoderLeft.getRate());
+	//	SmartDashboard.putNumber("Right Speed", encoderRight.getRate());
+	//	SmartDashboard.putNumber("Speed Difference" , encoderLeft.getRate()-encoderRight.getRate());
 
 		
-
-		
+	}
+	
+	private double round (double value, int precision) {
+	    int scale = (int) Math.pow(10, precision);
+	    return (double) Math.round(value * scale) / scale;
 	}
 }

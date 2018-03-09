@@ -20,10 +20,19 @@ public class ManualElevator extends Command {
 
 	protected void execute() {
 
-		double speed = Robot.oi.elevatorControl()*0.888;
-		Robot.elevator.move((speed + -1*Robot.elevator.holdingPower));
+		double speed = Robot.oi.elevatorControl()*0.9;
+		if(speed<0)
+		{
+			speed *= 0.5;
+		}
+		Robot.elevator.move((speed + Robot.elevator.holdingPower));
 		
-		int position = Robot.elevator.currentLocation();
+		
+		
+		
+		
+		
+		int position = Robot.elevator.getCurrentLocation();
 		
 		
 		if(position >= 0)

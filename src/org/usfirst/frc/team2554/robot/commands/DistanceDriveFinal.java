@@ -18,9 +18,9 @@ public class DistanceDriveFinal extends PIDCommand {
 	double straightKp = 0.03;
 	double correction;
 	
-	 double p = 0.02;
+	 double p = 0.8;
 	 double i = 0;
-	 double d = 0;
+	 double d = 0.0;
 	
 	int timeCheck = 0;
 	Timer timer = new Timer();
@@ -29,30 +29,26 @@ public class DistanceDriveFinal extends PIDCommand {
 	
 	PIDController SpeedPID = getPIDController();
 	public DistanceDriveFinal(double dist) {
-		super(0,0,0);
+		super(0,0,0,0.002);
 		distance = dist;
-		SpeedPID.setPID(p, i, d);
-    	SpeedPID.setOutputRange(-0.8, 0.8);
+		
+		double kP = SmartDashboard.getNumber("kP", p);
+		double kI = SmartDashboard.getNumber("kI", i);
+		double kD = SmartDashboard.getNumber("kD", d);
+		straightKp = SmartDashboard.getNumber("StraightCorrection", straightKp);
+		
+		SpeedPID.setPID(kP, kI, kD);
+    	SpeedPID.setOutputRange(-0.6, 0.6);
     	SpeedPID.setAbsoluteTolerance(1.0f);
 		SpeedPID.setSetpoint(distance);
 	
 	}
 	
-	public DistanceDriveFinal(double dist, double p, double i, double d)
-	{
-		super(0,0,0);
-		distance = dist;
-		this.p = p; 
-		this.i = i;
-		this.d = d;
-		SpeedPID.setPID(p, i, d);
-    	SpeedPID.setOutputRange(-0.8, 0.8);
-    	SpeedPID.setAbsoluteTolerance(1.0f);
-		SpeedPID.setSetpoint(distance);
-	}
+	
 
 	protected void initialize() {
-
+		System.out.println("Command Started");
+		System.out.println(SpeedPID.getP());
 	}
 
 	@Override
@@ -67,29 +63,15 @@ public class DistanceDriveFinal extends PIDCommand {
     	correction = currentAngle*straightKp ;
     	double rightSpeed = speed + correction;
     	double leftSpeed = speed - correction;
-    	
-    	
+    	SmartDashboard.putNumber("Left Speed", leftSpeed);
+    	SmartDashboard.putNumber("Right Speed", rightSpeed);
+    	SmartDashboard.putNumber("Error", SpeedPID.getError());
         Robot.driveTrain.myDrive.tankDrive(leftSpeed, rightSpeed);
 	}
 
 	@Override
 	protected boolean isFinished() {
-	   	if(SpeedPID.onTarget() && timeCheck<1)
-    	{
-    		timeCheck = 1;
-    		timer.start();
-    		timerStatus = true;
-    	}
-    	
-    	if(!SpeedPID.onTarget() && timeCheck>0)
-    	{
-    		timer.stop();
-    		timer.reset();
-    		timerStatus = false;
-    		timeCheck = 0;
-    	}
-    		
-        return timerStatus && timer.get()>timeOnTarget;
+	  return false;
 	}
 	
 

@@ -6,12 +6,12 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import org.usfirst.frc.team2554.robot.commands.BaseAngle;
 import org.usfirst.frc.team2554.robot.commands.ManualElevator;
 import org.usfirst.frc.team2554.robot.commands.MoveElevator;
 import org.usfirst.frc.team2554.robot.commands.Retrieve;
+import org.usfirst.frc.team2554.robot.commands.ScaleAngle;
 import org.usfirst.frc.team2554.robot.commands.Shooter;
-import org.usfirst.frc.team2554.robot.commands.ToggleRatchet;
 import org.usfirst.frc.team2554.robot.subsystems.Elevator;
 import org.usfirst.frc.team2554.robot.triggers.Intake;
 import org.usfirst.frc.team2554.robot.triggers.ManualControl;
@@ -27,7 +27,7 @@ public class OI {
 	
 
      //0: HOME
-	// 1: SWITCH j 
+	// 1: SWITCH 
 	// 2: SCALE
 	// 3: CLIMB
 	public Joystick leftStick = new Joystick(0);
@@ -38,17 +38,19 @@ public class OI {
 	
 	
 	// Levels
-	int buttonHome = 1;
-	int buttonSwitch = 2;
-	int buttonScale = 3;
+	int buttonHome = 3;
+	int buttonSwitch = 1;
+	int buttonScale = 2;
 	
 	
 
 	//Elevator
-	int manualControlStop = 10;
-	int toggleRatchetButton = 6;
+	int toggleRatchetButton = 4;
 	
 	
+	//Winch
+	int winchControlUp =  6;
+	int winchControlDown = 5;
 	//AXES 
 	
 	//Claw
@@ -59,22 +61,22 @@ public class OI {
 	//Elevator
 	int elevatorControl = 1;
 	
-	
+	//Elevator Buttons
 	public Button home = new JoystickButton(mechController, buttonHome);
     public Button switche = new JoystickButton(mechController, buttonSwitch);
     public Button scale = new JoystickButton(mechController, buttonScale);
     
-   
+   //Climbing
     public Button toggleRatchet = new JoystickButton(mechController, toggleRatchetButton);
+    
+    
+    public Button winchUp = new JoystickButton(mechController, winchControlUp);
+    public Button winchDown = new JoystickButton(mechController, winchControlDown);
     
     public Trigger manualControl = new ManualControl(mechController, elevatorControl);
     public Trigger intake = new Intake(mechController, intakeControl);
     public Trigger outtake = new Outtake(mechController, outtakeControl);
-    
-    public boolean limitSwitchBypass()  // manual elevator              
-    {
-    	return mechController.getRawButton(manualControlStop);
-    }
+   
  
     public double elevatorControl() //manual elevator
  	{
@@ -120,8 +122,10 @@ public class OI {
 		switche.whenPressed(new MoveElevator(1));
 		scale.whenPressed(new MoveElevator(2));
 		
-		toggleRatchet.whenPressed(new ToggleRatchet(!Robot.ratchet.ratchetStatus));
 
+	//	winchUp.whenPressed(new ScaleAngle());
+	//	winchDown.whenPressed(new BaseAngle());	
+		
 		manualControl.whileActive(new ManualElevator());
 		intake.whileActive(new Retrieve());
 		outtake.whileActive(new Shooter());
