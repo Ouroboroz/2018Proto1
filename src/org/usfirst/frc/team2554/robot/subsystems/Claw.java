@@ -21,11 +21,10 @@ public class Claw extends Subsystem {
 	public Encoder winchTracker = new Encoder(RobotMap.encoderWinch[0], RobotMap.encoderWinch[1]);
 	public DigitalInput winchLimit = new DigitalInput(RobotMap.winchLimit);
 
-	public double topToBottomDist = 128 ;
 
 	public double currentLocation = 0;
 
-
+	
 
 	public void initDefaultCommand() {
 
@@ -33,7 +32,7 @@ public class Claw extends Subsystem {
 
 	}
 	public Claw() {
-
+		
 	}
 
 	public void setSpeed(double speed)
@@ -48,9 +47,9 @@ public class Claw extends Subsystem {
 		rightMotor.set(0);
 	}
 
-	public double distance()
+	public int distance()
 	{
-		return winchTracker.getDistance();
+		return winchTracker.get();
 	}
 
 	public void reset()
@@ -64,20 +63,15 @@ public class Claw extends Subsystem {
 		SmartDashboard.putBoolean("Claw Limit", winchLimit.get());
 	}
 
-	public void goDown()
+	public void winchSpeed(double speed)
 	{
-		winchTracker.reset();
-		winchMotor.set(-0.5);
+		winchMotor.set(speed);
 	}
-
-	public void goUp()
-	{
-		winchMotor.set(0.5);
-	}
-
+	
 	public void stopWinch()
 	{
 		winchMotor.set(0);
 	}
+	
 }
 

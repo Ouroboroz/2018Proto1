@@ -7,43 +7,42 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AngleClawUp extends Command {
-
-    public AngleClawUp() {
-       
+public class ScaleAngle extends Command {
+	int baseToScale;  //Distance from base to the scale
+	int initialTicks;
+	double speed;
+    public ScaleAngle() {
     	requires(Robot.claw);
-        
+    	setInterruptible(false);
     }
 
-    // Called just before this Command runs the first time
+  
     protected void initialize() {
     	
     	if(Robot.claw.currentLocation == 1)
     		cancel();
     	
+    	initialTicks = Robot.claw.distance();
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    
     protected void execute() {
-    	
-    	Robot.claw.goUp();
+    	Robot.claw.winchSpeed(speed);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    
     protected boolean isFinished() {
-        return Robot.claw.winchLimit.get();
+    	int distance = Math.abs((Robot.claw.distance() - initialTicks));
+
+        return distance >= baseToScale;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.claw.stopWinch();
     	Robot.claw.currentLocation = 1;
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.claw.stopWinch();
-
     }
 }

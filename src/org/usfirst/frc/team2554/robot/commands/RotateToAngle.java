@@ -16,19 +16,19 @@ public class RotateToAngle extends PIDCommand {
 	int timeCheck = 0;
 	boolean timerStatus = false;
 	Timer timer = new Timer();
-	double TimeOnTarget = 0.2;
+	double TimeOnTarget = 0.5;
 	public RotateToAngle(int angle1) {
 		
 		super(0,0,0);
 		Robot.driveTrain.resetDriveTrain();
-		double P = SmartDashboard.getNumber("P", 0.06);
+		double P = SmartDashboard.getNumber("P", 0.08);
 		double I = SmartDashboard.getNumber("I", 0);
-		double D = SmartDashboard.getNumber("D", 0);
+		double D = SmartDashboard.getNumber("D", .2);
 		getPIDController().setPID(P, I, D);
 		angle = angle1;
 		getPIDController().setInputRange(-180,180);
-		getPIDController().setOutputRange(-0.5, 0.5);
-		getPIDController().setAbsoluteTolerance(5);
+		getPIDController().setOutputRange(-0.75, 0.75);
+		getPIDController().setAbsoluteTolerance(3);
 		getPIDController().setSetpoint(angle);
 		getPIDController().setContinuous(true);
 		requires(Robot.driveTrain);
@@ -49,6 +49,7 @@ public class RotateToAngle extends PIDCommand {
 		System.out.println("Speed: " + speed);
 		System.out.println("hah");
 		Robot.driveTrain.myDrive.arcadeDrive(0,1*speed );
+		System.out.println("Error: " + getPIDController().getError());
 	}
 
 	@Override

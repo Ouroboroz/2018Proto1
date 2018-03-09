@@ -31,18 +31,14 @@ public class Elevator extends Subsystem {
 	DigitalInput[] limit = { new DigitalInput(RobotMap.limitSwitches[0]), new DigitalInput(RobotMap.limitSwitches[1]),new DigitalInput(RobotMap.limitSwitches[2])};
 	
 	
-	public double holdingPower = -0.1111;
+	public double holdingPower = 0.07;
 	
-	public int currentLocation;
-	
-	
+	public int currentLocation = 0;
 	
 	
 	
-	public Elevator()
-	{
-		currentLocation = currentLocation();
-	}
+	
+	
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new HoldElevator());
@@ -54,21 +50,24 @@ public class Elevator extends Subsystem {
 	public void move(double speed)
 	{
 		
-		if(!(speed>0 && getLimit(2)) && !(speed<0 && getLimit(2)) && !(Robot.ratchet.ratchetStatus && speed<0) )
+		if(!(speed>0 && getLimit(2)) && !(speed<0 && getLimit(0)))
 		{
-			elevatorMotor1.set(-speed);
-			elevatorMotor2.set(-speed);
+			elevatorMotor1.set(speed);
+			elevatorMotor2.set(speed);
+			SmartDashboard.putString("Limit Break", "Not out of Bounds");
+
 		}
 		
 		else
+		{
+			SmartDashboard.putString("Limit Break", "Out of Bounds");
 			stall();
-		
+		}
 
 	}
 	
 	public void stall()
-	{
-		elevatorMotor1.set(holdingPower);
+	{	elevatorMotor1.set(holdingPower);
 		elevatorMotor2.set(holdingPower);
 	}
 
@@ -84,7 +83,7 @@ public class Elevator extends Subsystem {
 		return limit[choice].get();
 	}
 
-	public int currentLocation()	
+	public int getCurrentLocation()	
 	{
 		int currentSpot;
 		for(int i = 0; i < limit.length ; i++)
@@ -108,7 +107,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Limit 1", limit[1].get());
 		SmartDashboard.putBoolean("Limit 2", limit[2].get());
 		SmartDashboard.putNumber("Elevator Power", elevatorMotor1.get());
-
+		SmartDashboard.putNumber("Current Location", currentLocation);
 	}
 
 	

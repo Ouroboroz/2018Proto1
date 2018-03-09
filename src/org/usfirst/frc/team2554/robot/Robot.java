@@ -37,7 +37,6 @@ public class Robot extends IterativeRobot {
 	public static  DriveTrain driveTrain;
 	public static  Elevator elevator;
 	public static  Claw claw;
-	public static  Ratchet ratchet;
 	public static OI oi ;
 	
 
@@ -51,7 +50,6 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrain();
 		elevator = new Elevator();
 		claw = new Claw();
-		ratchet = new Ratchet();
 		oi = new OI();
 		LocationChooser.addObject("Left", -1);
 		LocationChooser.addObject("Middle", 0);
@@ -83,51 +81,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-
-		int robotLocation = LocationChooser.getSelected();
-		if(message.length()<2)
-		{		
-			do {
-
-				message = DriverStation.getInstance().getGameSpecificMessage();
-			}
-			while(message.length() < 2);
-		} 
-		
-		
-		if(robotLocation == 100)
-			autonomousCommand = new SideLineCross();
-		
-		else if (robotLocation == 200)
-			autonomousCommand = new CenterLineCross();
-			
-		
-		else
-		{
-			int switchLocation = (message.charAt(0) == 'L') ? -1 : 1;
-			int scaleLocation =  (message.charAt(1) == 'L') ? -1 : 1;
-			
-			if(robotLocation == 0) // Robot in the middle 
-			{
-				autonomousCommand = new CenterSwitch(robotLocation);
-			}
-			
-			
-			else
-			{
-				if(robotLocation == scaleLocation)
-					autonomousCommand = new SameSideScale(robotLocation);
-				
-				else if(robotLocation == switchLocation)
-					autonomousCommand = new SameSideSwitch(robotLocation);
-				
-				else
-					autonomousCommand = new OppositeSideSwitch(robotLocation);
-					 
-			}
-		}
-		
-		
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 
@@ -151,6 +104,7 @@ public class Robot extends IterativeRobot {
 
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		Robot.driveTrain.resetDriveTrain();
 
 
 	}
@@ -172,7 +126,6 @@ public class Robot extends IterativeRobot {
 	public void log()
 	{
 		elevator.log();
-		ratchet.log();
 		driveTrain.log();
 		claw.log();
 	}
