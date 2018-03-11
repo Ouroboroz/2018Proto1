@@ -18,21 +18,18 @@ public class MoveElevator extends Command {
 
 	private int goal;
 	private int currentLocation;
-	private double speedUp = 0.3;
+	private double speedUp = 0.45;
 	private double speedDown = -0.2;
 	private double speed= 0;
     public MoveElevator(int goal) {
         requires(Robot.elevator);
        this.goal = goal;
-       System.out.println(goal);
        
     }
 
     protected void initialize() {
 
     	currentLocation = Robot.elevator.currentLocation;
-        System.out.println("Current Location: " + currentLocation);
-       System.out.println("Goal: " + goal);
     	 
     	
     	if(goal > currentLocation)
@@ -63,11 +60,9 @@ public class MoveElevator extends Command {
     protected void end() {
     	Robot.elevator.stall();
     	Robot.elevator.currentLocation = Robot.elevator.getCurrentLocation();
-    	System.out.println("Command Finished");
     }
 
     protected void interrupted() {
     	Robot.elevator.stall();
-    	System.out.println("Command Interuppted");
     }
 }

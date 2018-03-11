@@ -15,12 +15,15 @@ public class DriveStraight extends PIDCommand {
 	double speed;
 	double distance;
 	boolean endStop;
+	double jank = 0.9166/2;
+	Timer timer = new Timer();
+	boolean timeOut = false;
 	PIDController StraightPID = getPIDController();
 	public DriveStraight(double distance, double speed, boolean stop, double heading) {
 		super(0.1,0,.225,0.02); //p = 0.08
 		this.speed = speed;
 		if(stop)
-			this.distance = distance-0.9166;
+			this.distance = distance-jank;
 		else
 			this.distance = distance;
 		getPIDController().setInputRange(-180,180);
@@ -43,14 +46,22 @@ public class DriveStraight extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double rotation) {
-		System.out.println("Error" + (distance - Robot.driveTrain.getDistance()));
-	Robot.driveTrain.myDrive.arcadeDrive(speed, rotation);
+		Robot.driveTrain.myDrive.arcadeDrive(speed, rotation);
 	}
 
 	@Override
 	protected boolean isFinished() {
 	
-		return (Robot.driveTrain.getDistance() >= distance);
+		if(Robot.driveTrain.getDistance() > 0.75*distance)
+		{	
+			timer.start();
+			timeOut = true;
+		}
+		
+		else
+			timeOut = false;
+			
+		return (Robot.driveTrain.getDistance() >= distance || (timeOut && timer.get()>5 ));
 	}
 	
 

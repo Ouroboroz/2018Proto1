@@ -50,7 +50,7 @@ public class Elevator extends Subsystem {
 	public void move(double speed)
 	{
 		
-		if(!(speed>0 && getLimit(2)) && !(speed<0 && getLimit(0)))
+		if(!(speed>0 && getLimit(2)) && !(speed<0 && (getLimit(0) && !Robot.oi.mechController.getRawButton(3))))
 		{
 			elevatorMotor1.set(speed);
 			elevatorMotor2.set(speed);

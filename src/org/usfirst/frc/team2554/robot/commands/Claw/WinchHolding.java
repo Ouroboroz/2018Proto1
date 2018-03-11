@@ -23,7 +23,7 @@ public class WinchHolding extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.claw.winchSpeed(0.1);
+    	Robot.claw.winchSpeed(0.095);
 
     }
 

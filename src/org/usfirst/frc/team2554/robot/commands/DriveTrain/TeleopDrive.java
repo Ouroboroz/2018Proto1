@@ -23,7 +23,6 @@ public class TeleopDrive extends Command {
     protected void execute() {
 
     	
-    	//Robot.driveTrain.tankDrive(Robot.oi.leftSide(), Robot.oi.rightSide(), sensitivity, DEADZONE);
     	Robot.driveTrain.arcadeDrive(Robot.oi.verticalSpeed(), Robot.oi.rotationSpeed(), sensitivity, DEADZONE);
     	
     }

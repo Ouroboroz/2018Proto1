@@ -49,6 +49,7 @@ public class DistanceDriveFinal extends PIDCommand {
 		SpeedPID.setPID(kP, kI, kD);
 		System.out.println("Command Started");
 		System.out.println(SpeedPID.getP());
+		Robot.driveTrain.resetDriveTrain();
 	}
 
 	@Override

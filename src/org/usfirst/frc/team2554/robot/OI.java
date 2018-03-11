@@ -34,7 +34,6 @@ public class OI {
 	// 2: SCALE
 	// 3: CLIMB
 	public Joystick leftStick = new Joystick(0);
-	public Joystick rightStick = new Joystick(1);
 	public Joystick mechController = new Joystick(2);
 	
 	//BUTTONS 
@@ -48,7 +47,6 @@ public class OI {
 	
 
 	//Elevator
-	int toggleRatchetButton = 3;
 	
 	
 	//Winch
@@ -70,7 +68,6 @@ public class OI {
     public Button scale = new JoystickButton(mechController, buttonScale);
     
    //Climbing
-    public Button toggleRatchet = new JoystickButton(mechController, toggleRatchetButton);
     
     
     public Button winchUp = new JoystickButton(mechController, winchControlUp);
@@ -101,10 +98,7 @@ public class OI {
     	return -1*leftStick.getY();
     }
     
-    public double rightSide() //tank drive
-    {
-    	return -1*rightStick.getY();
-    }
+  
     
 
 	

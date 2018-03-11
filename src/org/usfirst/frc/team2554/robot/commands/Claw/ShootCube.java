@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  *
  */
 public class ShootCube extends TimedCommand {
-
-    public ShootCube(double timeout) {
+	double speed;
+    public ShootCube(double timeout, double speed) {
         super(timeout);
+        this.speed = speed;
         // Use requires() here to declare subsystem dependencies
         requires(Robot.claw);
     }
@@ -21,8 +22,8 @@ public class ShootCube extends TimedCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.claw.setSpeed(-1);
-    	
+    	Robot.claw.setSpeed(speed);
+    	//-0.2
     }
 
     // Called once after timeout

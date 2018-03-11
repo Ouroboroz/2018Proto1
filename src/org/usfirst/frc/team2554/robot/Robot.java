@@ -2,6 +2,7 @@
 package org.usfirst.frc.team2554.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2554.robot.commands.*;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
 import org.usfirst.frc.team2554.robot.commands.auto.AutoTest;
 import org.usfirst.frc.team2554.robot.commands.auto.CenterLineCross;
 import org.usfirst.frc.team2554.robot.commands.auto.CenterSwitch;
@@ -33,7 +35,7 @@ public class Robot extends IterativeRobot {
 	
 	Command autonomousCommand; 
 	SendableChooser<Integer> LocationChooser = new SendableChooser<>();
-	String message;
+	String message = "";
 
 	public static  DriveTrain driveTrain;
 	public static  Elevator elevator;
@@ -83,7 +85,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		Robot.driveTrain.resetDriveTrain();
-/*
 		int robotLocation = LocationChooser.getSelected();
 		if(message.length()<2)
 		{		
@@ -109,33 +110,31 @@ public class Robot extends IterativeRobot {
 			
 			if(robotLocation == 0) // Robot in the middle 
 			{
-				autonomousCommand = new CenterSwitch(robotLocation);
+				autonomousCommand = new CenterSwitch(switchLocation);
+				System.out.println("Center Auto");
 			}
 			
 			
 			else
 			{
-				if(robotLocation == scaleLocation)
-					autonomousCommand = new SameSideScale(robotLocation);
-				
-				else if(robotLocation == switchLocation)
+				if(robotLocation == switchLocation){
 					autonomousCommand = new SameSideSwitch(robotLocation);
-				
-				else
-					autonomousCommand = new OppositeSideSwitch(robotLocation);
+				}
+				else if(robotLocation == scaleLocation)
+					autonomousCommand = new SameSideScale(robotLocation);
+				else{
+					//autonomousCommand = new OppositeSideSwitch(robotLocation);
+					autonomousCommand = new SideLineCross();
+				}
 					 
 			}
 		}
-		*/
 		
-		//autonomousCommand = new DistanceDriveFinal(7);
+		//autonomousCommand = new OppositeSideSwitch(-1) ;
 		
-		//autonomousCommand = new DriveStraight(7,0.8);
-		
-		
-		//autonomousCommand = new RotateToAngle(90);
-		
-		autonomousCommand=new AutoTest();
+		//autonomousCommand = new SameSideScale(1);
+	//	autonomousCommand = new SameSideSwitch(1);
+		//autonomousCommand = new SameSideScale(1);
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 

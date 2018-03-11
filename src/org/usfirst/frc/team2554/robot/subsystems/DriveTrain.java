@@ -45,7 +45,7 @@ public class DriveTrain extends Subsystem {
 	public SpeedControllerGroup left = new SpeedControllerGroup(frontLeft, backLeft);
 	public SpeedControllerGroup right = new SpeedControllerGroup(frontRight, backRight);
 
-
+	public double MinSpeed = 0.7; 
 
 
 	public Encoder encoderRight = new Encoder(RobotMap.encoderRight[0], RobotMap.encoderRight[1]);
@@ -84,6 +84,9 @@ public class DriveTrain extends Subsystem {
 		
 		if(Math.abs(rotationSpeed)< deadzone)
 			rotationSpeed = 0;
+		
+		if(Robot.oi.leftStick.getRawButton(1))
+			sensitivity = 1;
 		
 		myDrive.arcadeDrive(forwardSpeed*sensitivity, rotationSpeed*sensitivity);
 	}
