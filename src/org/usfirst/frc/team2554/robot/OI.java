@@ -7,18 +7,19 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team2554.robot.commands.Claw.BaseAngle;
 import org.usfirst.frc.team2554.robot.commands.Claw.Retrieve;
-import org.usfirst.frc.team2554.robot.commands.Claw.ScaleAngle;
+
 import org.usfirst.frc.team2554.robot.commands.Claw.Shooter;
 import org.usfirst.frc.team2554.robot.commands.Claw.WinchDown;
 import org.usfirst.frc.team2554.robot.commands.Claw.WinchUp;
+import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
 import org.usfirst.frc.team2554.robot.commands.Elevator.ManualElevator;
 import org.usfirst.frc.team2554.robot.commands.Elevator.MoveElevator;
 import org.usfirst.frc.team2554.robot.subsystems.Elevator;
 import org.usfirst.frc.team2554.robot.triggers.Intake;
 import org.usfirst.frc.team2554.robot.triggers.ManualControl;
 import org.usfirst.frc.team2554.robot.triggers.Outtake;
+import org.usfirst.frc.team2554.robot.triggers.PovRotate;
 
 
 /**
@@ -55,8 +56,8 @@ public class OI {
 	//AXES 
 	
 	//Claw
-	int intakeControl = 2;
-	int outtakeControl = 3;
+	int intakeControl = 3;
+	int outtakeControl = 2;
 
 	
 	//Elevator
@@ -78,6 +79,11 @@ public class OI {
     public Trigger outtake = new Outtake(mechController, outtakeControl);
    
  
+    public Trigger degree90 = new PovRotate(leftStick, 90);
+    public Trigger degree0 = new PovRotate(leftStick, 0);
+    public Trigger degreeminus90 = new PovRotate(leftStick, 270);
+    public Trigger degree180 = new PovRotate (leftStick, 180);
+    
     public double elevatorControl() //manual elevator
  	{
  		return -1*mechController.getRawAxis(elevatorControl);
@@ -126,6 +132,11 @@ public class OI {
 		manualControl.whileActive(new ManualElevator());
 		intake.whileActive(new Retrieve());
 		outtake.whileActive(new Shooter());
+		
+		degree90.whenActive(new RotateToAngle(90));
+		degreeminus90.whenActive((new RotateToAngle(-90)));
+		degree0.whenActive(new RotateToAngle(0));
+		degree180.whenActive(new RotateToAngle(180));
 	}
 
 	

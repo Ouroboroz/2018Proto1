@@ -32,6 +32,7 @@ public class RotateToAngle extends PIDCommand {
 		getPIDController().setAbsoluteTolerance(2.5);
 		getPIDController().setSetpoint(angle);
 		getPIDController().setContinuous(true);
+	//	SmartDashboard.putData("PID Controller" , getPIDController());
 		requires(Robot.driveTrain);
 	}
 
@@ -46,6 +47,7 @@ public class RotateToAngle extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double speed) {
+		
 		Robot.driveTrain.myDrive.arcadeDrive(0,1*speed );
 	}
 

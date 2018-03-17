@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ManualElevator extends Command {
 
+	boolean slowSpeed;
+	double multiplier = 1;
 	public ManualElevator() {
 
 		requires(Robot.elevator);
@@ -20,11 +22,28 @@ public class ManualElevator extends Command {
 
 	protected void execute() {
 
-		double speed = Robot.oi.elevatorControl()*0.9;
-		if(speed<0)
-		{
-			speed *= 0.5;
-		}
+		if(Robot.elevator.getLimit(1) && Robot.elevator.elevatorMotor1.get() > 0)
+			slowSpeed = true;
+		
+		if(Robot.elevator.getLimit(1) && Robot.elevator.elevatorMotor1.get() < 0)
+			slowSpeed = false;
+		
+		if(slowSpeed && Robot.oi.elevatorControl() > 0)
+			multiplier = 0.5;
+		
+			
+		else
+			multiplier = 1;
+		
+		
+		
+		
+		double speed = Robot.oi.elevatorControl()*0.9*multiplier;
+		
+	//	if(speed<0)
+	//	{
+	//		speed *= 0.5;
+	//	}
 		Robot.elevator.move((speed + Robot.elevator.holdingPower));
 		
 		

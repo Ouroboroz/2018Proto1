@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2554.robot.commands.auto;
+package org.usfirst.frc.team2554.robot.commands.Auto;
 
 import org.usfirst.frc.team2554.robot.Robot;
 import org.usfirst.frc.team2554.robot.commands.Claw.Shooter;

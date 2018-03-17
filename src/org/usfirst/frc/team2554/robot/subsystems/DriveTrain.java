@@ -79,16 +79,37 @@ public class DriveTrain extends Subsystem {
 	
 	public void arcadeDrive(double forwardSpeed, double rotationSpeed, double sensitivity, double deadzone)
 	{
+		double sensitivityR = 0.8;
+		
 		if(Math.abs(forwardSpeed)< deadzone)
 			forwardSpeed = 0;
 		
 		if(Math.abs(rotationSpeed)< deadzone)
 			rotationSpeed = 0;
 		
-		if(Robot.oi.leftStick.getRawButton(1))
-			sensitivity = 1;
+		if(Robot.oi.leftStick.getRawButton(1)){
+			sensitivityR = 1;
+			sensitivity = 1;	
+		}
 		
-		myDrive.arcadeDrive(forwardSpeed*sensitivity, rotationSpeed*sensitivity);
+		
+		if(Robot.oi.leftStick.getRawButton(4))
+			myDrive.arcadeDrive(0 , 0.65);
+		
+		else if(Robot.oi.leftStick.getRawButton(3))
+			myDrive.arcadeDrive(0, -0.65);
+		
+		else if(Robot.oi.leftStick.getRawButton(5))
+			myDrive.arcadeDrive(0, -0.9);
+		
+		else if(Robot.oi.leftStick.getRawButton(6))
+			myDrive.arcadeDrive(0, 0.9);
+		
+		else
+		{	
+		myDrive.arcadeDrive(forwardSpeed*sensitivity, rotationSpeed*sensitivityR);
+		}
+		
 	}
 	
 	public void stop()

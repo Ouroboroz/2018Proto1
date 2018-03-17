@@ -1,10 +1,12 @@
 
 package org.usfirst.frc.team2554.robot;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.*;
@@ -13,14 +15,17 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2554.robot.commands.*;
+import org.usfirst.frc.team2554.robot.commands.Auto.MiddleSwitch;
+import org.usfirst.frc.team2554.robot.commands.Auto.CenterLineCross;
+import org.usfirst.frc.team2554.robot.commands.Auto.OppositeSideSwitch;
+import org.usfirst.frc.team2554.robot.commands.Auto.SameSideScale;
+import org.usfirst.frc.team2554.robot.commands.Auto.SameSideSwitch;
+import org.usfirst.frc.team2554.robot.commands.Auto.SideLineCross;
+import org.usfirst.frc.team2554.robot.commands.Claw.ScaleWinch;
+import org.usfirst.frc.team2554.robot.commands.Claw.ShootIntakeCube;
 import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
-import org.usfirst.frc.team2554.robot.commands.auto.AutoTest;
-import org.usfirst.frc.team2554.robot.commands.auto.CenterLineCross;
-import org.usfirst.frc.team2554.robot.commands.auto.CenterSwitch;
-import org.usfirst.frc.team2554.robot.commands.auto.OppositeSideSwitch;
-import org.usfirst.frc.team2554.robot.commands.auto.SameSideScale;
-import org.usfirst.frc.team2554.robot.commands.auto.SameSideSwitch;
-import org.usfirst.frc.team2554.robot.commands.auto.SideLineCross;
+import org.usfirst.frc.team2554.robot.commands.Relics.AutoTest;
+import org.usfirst.frc.team2554.robot.commands.Relics.CenterSwitch;
 import org.usfirst.frc.team2554.robot.subsystems.*;
 
 /**
@@ -42,24 +47,44 @@ public class Robot extends IterativeRobot {
 	public static  Claw claw;
 	public static OI oi ;
 	
-
+	boolean riskyStuff  = false;
+	int x = 0;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-
+		
+		
+	
+		
 		driveTrain = new DriveTrain();
 		elevator = new Elevator();
 		claw = new Claw();
 		oi = new OI();
+		
 		LocationChooser.addObject("Left", -1);
 		LocationChooser.addObject("Middle", 0);
 		LocationChooser.addObject("Right", 1);
 		LocationChooser.addObject("Side Cross", 100);
 		LocationChooser.addObject("Middle Cross", 200);
+		LocationChooser.addDefault("Default", 100);
 		SmartDashboard.putData("Location", LocationChooser);
+		
+		try
+		{
+			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+			camera.setResolution(360, 240);
+			camera.setFPS(24);
+		}
+
+
+
+		catch(Exception E)
+		{
+			System.out.println("Camera Failed");
+		}
 	}
 
 	/**
@@ -69,16 +94,22 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
+	
+
 
 	}
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+	
+		
 		do
 		{
 			 message = DriverStation.getInstance().getGameSpecificMessage();
 		}
 		while(message.length() < 2);
+		
 	}
 
 
@@ -110,7 +141,7 @@ public class Robot extends IterativeRobot {
 			
 			if(robotLocation == 0) // Robot in the middle 
 			{
-				autonomousCommand = new CenterSwitch(switchLocation);
+				autonomousCommand = new MiddleSwitch(switchLocation);
 				System.out.println("Center Auto");
 			}
 			
@@ -119,22 +150,26 @@ public class Robot extends IterativeRobot {
 			{
 				if(robotLocation == switchLocation){
 					autonomousCommand = new SameSideSwitch(robotLocation);
+					//autonomousCommand = new SameSideScale(robotLocation);
+					System.out.println("Same Side Switch");
 				}
 				else if(robotLocation == scaleLocation)
+				{
 					autonomousCommand = new SameSideScale(robotLocation);
+					//autonomousCommand = new SideLineCross();
+					System.out.println("Same Side Scale");
+				}	
 				else{
-					//autonomousCommand = new OppositeSideSwitch(robotLocation);
+              		//autonomousCommand = new OppositeSideSwitch(robotLocation);
 					autonomousCommand = new SideLineCross();
+					System.out.println("Supposed to be opposite switch but its just crossing.");
 				}
 					 
 			}
 		}
 		
-		//autonomousCommand = new OppositeSideSwitch(-1) ;
-		
-		//autonomousCommand = new SameSideScale(1);
-	//	autonomousCommand = new SameSideSwitch(1);
-		//autonomousCommand = new SameSideScale(1);
+				
+
 		if (autonomousCommand != null)
 			autonomousCommand.start();	
 
@@ -146,6 +181,8 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousPeriodic() {
+		
+		
 		Scheduler.getInstance().run();
 		log();
 
@@ -169,17 +206,23 @@ public class Robot extends IterativeRobot {
 
 		Scheduler.getInstance().run();
 		log();
+		
 	}
 
 
 	@Override
+	public void testInit()
+	{
+	}
+	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+		
 	}
 
 	public void log()
 	{
-		//elevator.log();
+		elevator.log();
 		//driveTrain.log();
 		//claw.log();
 	}

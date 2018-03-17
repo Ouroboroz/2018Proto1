@@ -52,7 +52,7 @@ public class DriveStraight extends PIDCommand {
 	@Override
 	protected boolean isFinished() {
 	
-		if(Robot.driveTrain.getDistance() > 0.75*distance)
+		if( Math.abs(Robot.driveTrain.getDistance()) > Math.abs(0.75*distance))
 		{	
 			timer.start();
 			timeOut = true;
@@ -61,7 +61,8 @@ public class DriveStraight extends PIDCommand {
 		else
 			timeOut = false;
 			
-		return (Robot.driveTrain.getDistance() >= distance || (timeOut && timer.get()>5 ));
+		
+		return (Math.abs((Robot.driveTrain.getDistance())) >= Math.abs(distance) || (timeOut && timer.get()>5 ));
 	}
 	
 

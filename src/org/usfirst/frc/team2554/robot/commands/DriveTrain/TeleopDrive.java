@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TeleopDrive extends Command {
 
 	double sensitivity = 0.7;
-	final public double DEADZONE = 0.15;
+	final public double DEADZONE = 0.07;
     public TeleopDrive() {
 
     	requires(Robot.driveTrain);

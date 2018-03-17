@@ -1,7 +1,7 @@
-package org.usfirst.frc.team2554.robot.commands.auto;
+package org.usfirst.frc.team2554.robot.commands.Relics;
 
 import org.usfirst.frc.team2554.robot.Robot;
-import org.usfirst.frc.team2554.robot.commands.Claw.ShootCube;
+import org.usfirst.frc.team2554.robot.commands.Claw.ShootIntakeCube;
 import org.usfirst.frc.team2554.robot.commands.Claw.Shooter;
 import org.usfirst.frc.team2554.robot.commands.DriveTrain.DriveStraight;
 import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
@@ -26,7 +26,7 @@ public class CenterSwitch extends CommandGroup {
 		addSequential(new RotateToAngle(-90*side));
 		addSequential(new MoveElevator(1));
 		addSequential(new DriveStraight(2.5, Robot.driveTrain.MinSpeed, true, -90*side));
-        addSequential(new ShootCube(3, -0.2));
+        addSequential(new ShootIntakeCube(3, -0.2));
     	}
     	
     	if(side ==-1)
@@ -39,7 +39,7 @@ public class CenterSwitch extends CommandGroup {
     		addSequential(new RotateToAngle(-90*side));
     		addSequential(new MoveElevator(1));
     		addSequential(new DriveStraight(2.5, Robot.driveTrain.MinSpeed, true, -90*side));
-            addSequential(new ShootCube(3, -0.2));
+            addSequential(new ShootIntakeCube(3, -0.2));
     		
     	}
     }

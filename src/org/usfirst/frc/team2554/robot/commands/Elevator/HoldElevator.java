@@ -23,14 +23,7 @@ public class HoldElevator extends Command {
 
     protected void execute() {
     	
-    	if(Robot.elevator.getLimit(0) && !Robot.oi.mechController.getRawButton(3))
-    	{
-    		Robot.elevator.stop();
-    	}
-    	else
-    	{
-    		Robot.elevator.stall();
-    	}	
+    	Robot.elevator.stall();
     }
 
     protected boolean isFinished() {

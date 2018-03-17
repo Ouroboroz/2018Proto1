@@ -106,8 +106,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Limit 0", limit[0].get());
 		SmartDashboard.putBoolean("Limit 1", limit[1].get());
 		SmartDashboard.putBoolean("Limit 2", limit[2].get());
-		SmartDashboard.putNumber("Elevator Power", elevatorMotor1.get());
-		SmartDashboard.putNumber("Current Location", currentLocation);
 	}
 
 	

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2554.robot.commands.auto;
+package org.usfirst.frc.team2554.robot.commands.Relics;
 
 import org.usfirst.frc.team2554.robot.commands.DriveTrain.DriveStraight;
 import org.usfirst.frc.team2554.robot.commands.DriveTrain.RotateToAngle;
